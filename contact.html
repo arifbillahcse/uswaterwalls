@@ -3,183 +3,240 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Contact Us | US Water Walls</title>
-<meta name="description" content="Get in touch with US Water Walls for a free water feature consultation and quote. Call (800) 555-1234 or send us a message."/>
+<title>Contact — US Video Walls</title>
+<meta name="description" content="Contact US Video Walls. Call toll free 888-205-9035 or send us a message. We serve all 50 states."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="assets/style.css"/>
 </head>
 <body>
-<div id="cg"></div>
+
 <nav id="nav">
-  <a href="/" class="logo">
-    <div class="logo-mark">
-      <svg viewBox="0 0 24 24"><path d="M12 2C9 7 4 9 4 14a8 8 0 0016 0c0-5-5-7-8-12z"/></svg>
-    </div>
-    <span class="logo-name">US<em>Water</em>Walls</span>
+  <a href="index.html" class="logo">
+    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    <span class="logo-text">US Video Walls</span>
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
     <li><a href="products.html">Products</a></li>
     <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="contact.html" class="nav-cta">Free Quote</a></li>
+    <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
   </ul>
-  <div class="ham" id="ham"><span></span><span></span><span></span></div>
+  <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- mobile nav -->
 <div class="mob-nav" id="mobnav">
   <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="about.html" onclick="closeMob()">About</a>
   <a href="products.html" onclick="closeMob()">Products</a>
   <a href="gallery.html" onclick="closeMob()">Gallery</a>
-  <a href="about.html" onclick="closeMob()">About</a>
   <a href="contact.html" onclick="closeMob()">Contact</a>
-  <a href="contact.html" onclick="closeMob()" style="color:var(--teal)">Get Free Quote</a>
+  <a href="contact.html" onclick="closeMob()" class="mob-cta">Get a Quote</a>
 </div>
 
-<!-- PAGE HERO -->
-<section id="pagehero">
-  <div class="pagehero-photo" style="background-image:url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=70')"></div>
-  <div class="pagehero-bg"></div>
-  <div class="drops-layer" id="heroDrops"></div>
-  <div class="pagehero-inner">
-    <div class="crumbs"><a href="index.html">Home</a><span>/</span><span>Contact</span></div>
-    <h1>Let&#39;s Start a <span class="it">Conversation</span></h1>
-    <p>Tell us about your space and vision. Our design team will craft a complimentary concept proposal — no obligation, just inspiration.</p>
+<section id="page-hero">
+  <div class="ph-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=60')"></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-inner rv">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a><span>/</span><span>Contact</span>
+    </div>
+    <h1>Get in <em>Touch</em></h1>
+    <p>Ready to discuss your video wall project? Call us toll free or send a message — our team responds within 24 hours.</p>
   </div>
 </section>
 
-<section class="bg-light">
+<!-- CONTACT MAIN -->
+<section style="background:var(--white);padding:7rem var(--pad)">
   <div class="contact-grid">
-    <div class="contact-info rv">
-      <div class="cinfo-card"><div class="cinfo-ico">📞</div><div><h4>Call Us</h4><a href="tel:+18005551234">(800) 555-1234</a><p>Mon–Fri, 9am–6pm EST</p></div></div>
-      <div class="cinfo-card"><div class="cinfo-ico">✉️</div><div><h4>Email Us</h4><a href="mailto:info@uswaterwalls.com">info@uswaterwalls.com</a><p>We reply within 24 hours</p></div></div>
-      <div class="cinfo-card"><div class="cinfo-ico">📍</div><div><h4>Visit Our Studio</h4><p>1200 Waterfront Drive<br/>Suite 400, Miami, FL 33131</p></div></div>
-      <div class="cinfo-card"><div class="cinfo-ico">🌐</div><div><h4>Service Area</h4><p>All 50 United States<br/>Nationwide design &amp; install</p></div></div>
+
+    <!-- Info -->
+    <div class="contact-info">
+      <h2 style="font-size:clamp(1.8rem,2.8vw,2.8rem);margin-bottom:2rem">We'd love to<br><em>hear from you.</em></h2>
+
+      <div class="ci-card rv d1">
+        <div class="ci-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <a href="tel:8882059035">888-205-9035</a>
+          <p>Toll free, Mon–Fri 9am–6pm ET</p>
+        </div>
+      </div>
+
+      <div class="ci-card rv d2">
+        <div class="ci-icon">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:info@usvideowalls.com">info@usvideowalls.com</a>
+          <p>We reply within 24 hours</p>
+        </div>
+      </div>
+
+      <div class="ci-card rv d3">
+        <div class="ci-icon">🌐</div>
+        <div>
+          <h4>Service Area</h4>
+          <p>All 50 United States</p>
+          <p>We travel to you, wherever you are</p>
+        </div>
+      </div>
+
+      <div class="ci-card rv d4">
+        <div class="ci-icon">🏥</div>
+        <div>
+          <h4>Sister Company</h4>
+          <a href="https://www.medicalmurals.com" target="_blank" rel="noopener">MedicalMurals.com</a>
+          <p>LED faux windows for medical offices &amp; hospitals</p>
+        </div>
+      </div>
+
     </div>
-    <form class="contact-form rv d1" data-quote>
-      <div class="sec-tag">Free Quote</div>
-      <h2 class="sec-h" style="font-size:1.8rem;margin-bottom:1.5rem">Request Your Consultation</h2>
-      <div class="form-row">
-        <div class="field"><label>First Name</label><input type="text" required placeholder="Jane"/></div>
-        <div class="field"><label>Last Name</label><input type="text" required placeholder="Doe"/></div>
-      </div>
-      <div class="form-row">
-        <div class="field"><label>Email</label><input type="email" required placeholder="jane@email.com"/></div>
-        <div class="field"><label>Phone</label><input type="tel" placeholder="(555) 000-0000"/></div>
-      </div>
-      <div class="field"><label>Interested In</label>
-        <select>
-          <option>Bubble Wall</option>
-          <option>Floor Fountain</option>
-          <option>Wall Waterfall</option>
-          <option>LED Mist Fountain</option>
-          <option>Natural Stone Feature</option>
-          <option>Not sure yet — need advice</option>
-        </select>
-      </div>
-      <div class="field"><label>Tell Us About Your Project</label><textarea placeholder="Describe your space, size, timeline and any ideas you have..."></textarea></div>
-      <button type="submit" class="btn-glow" style="width:100%;justify-content:center">Send My Request</button>
-      <div class="form-note">No spam. Custom concepts delivered within 48 hours.</div>
-    </form>
+
+    <!-- Form -->
+    <div class="contact-form-wrap rv d2">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;margin-bottom:0.5rem;color:var(--dark)">Send a Message</h3>
+      <p style="font-size:0.85rem;color:var(--muted);margin-bottom:2rem">Tell us about your project — space dimensions, intended use, budget, and timeline.</p>
+
+      <form data-contact>
+        <div class="form-row">
+          <div class="field">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="John" required/>
+          </div>
+          <div class="field">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Smith" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required/>
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000"/>
+          </div>
+        </div>
+        <div class="field">
+          <label for="project">Project Type</label>
+          <select id="project" name="project">
+            <option value="">Select a project type…</option>
+            <option value="residential">Residential / Home Theater</option>
+            <option value="commercial">Corporate / Office</option>
+            <option value="hospitality">Hotel / Hospitality</option>
+            <option value="retail">Retail / Venue</option>
+            <option value="3d">HD 3D System</option>
+            <option value="faux">LED Faux Windows (Medical Murals)</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Tell Us About Your Project</label>
+          <textarea id="message" name="message" placeholder="Describe your space, wall dimensions, goals, timeline, and any specific questions…"></textarea>
+        </div>
+        <button type="submit" class="btn-blue" style="width:100%;justify-content:center;padding:1rem">Send Message &rarr;</button>
+        <p class="form-note">We'll respond within 24 hours. Your information is never shared.</p>
+      </form>
+    </div>
+
   </div>
 </section>
-<section class="bg-white" style="padding-top:0">
-  <div class="map-wrap rv">
-    <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-80.21%2C25.74%2C-80.16%2C25.79&amp;layer=mapnik" title="Our location" loading="lazy"></iframe>
-  </div>
-</section>
-<section class="bg-light">
-  <div class="sec-hdr ctr rv">
-    <div class="sec-tag">Questions</div>
-    <h2 class="sec-h">Frequently <span class="it">Asked</span> <span class="drop-accent"><svg width="13" height="17" viewBox="0 0 60 80"><path d="M30 0C30 0 4 36 4 53a26 26 0 0052 0C56 36 30 0 30 0Z" fill="rgba(62,207,190,.55)"/></svg></span></h2>
-    <p class="sec-p">Everything you need to know before getting started.</p>
-  </div>
-  <div class="faq">
-    <div class="faq-item rv">
-      <div class="faq-q">How much does a custom water feature cost?<span class="pm">+</span></div>
-      <div class="faq-a"><p>Pricing depends on size, materials and complexity. Compact features start around $2,500, signature bubble walls and floor fountains typically range $7,500 to $25,000, and grand bespoke installations are custom-quoted. We provide a free, detailed quote for every project.</p></div>
+
+<!-- FAQ -->
+<section style="background:var(--off);padding:6rem var(--pad)">
+  <div class="wrap" style="max-width:var(--max)">
+    <div class="rv" style="text-align:center;margin-bottom:3rem">
+      <span class="sec-label" style="justify-content:center"><span>FAQ</span></span>
+      <h2 style="font-size:clamp(2rem,3.5vw,3.5rem);margin-top:0.5rem">Common <em>Questions</em></h2>
     </div>
-    <div class="faq-item rv">
-      <div class="faq-q">How long does design and installation take?<span class="pm">+</span></div>
-      <div class="faq-a"><p>You will receive a 3D concept within 48 hours of your consultation. Once approved, most builds take 3 to 6 weeks depending on scale, followed by a 1 to 2 day white-glove installation.</p></div>
-    </div>
-    <div class="faq-item rv">
-      <div class="faq-q">Do you serve my area?<span class="pm">+</span></div>
-      <div class="faq-a"><p>Yes — we design and install water features in all 50 US states. Our team travels nationwide for installation and offers remote design consultations.</p></div>
-    </div>
-    <div class="faq-item rv">
-      <div class="faq-q">How much maintenance is required?<span class="pm">+</span></div>
-      <div class="faq-a"><p>Very little. Our recirculating systems are designed for easy upkeep — typically a water top-up and occasional cleaning. Every install includes our lifetime maintenance program and support.</p></div>
-    </div>
-    <div class="faq-item rv">
-      <div class="faq-q">Can water features be installed outdoors?<span class="pm">+</span></div>
-      <div class="faq-a"><p>Absolutely. Many of our floor fountains and stone features are built for both indoor and outdoor use with weather-resistant materials and pumps.</p></div>
+    <div class="faq-list">
+
+      <div class="faq-item rv d1">
+        <div class="faq-q">
+          What's the minimum and maximum size for a video wall?
+          <span class="faq-pm">+</span>
+        </div>
+        <div class="faq-a">
+          <p>There's no practical minimum or maximum — we've installed systems as small as two panels and as large as full wall arrays spanning 30+ feet. We custom design for your exact space. Tell us your wall dimensions and we'll design the optimal configuration.</p>
+        </div>
+      </div>
+
+      <div class="faq-item rv d2">
+        <div class="faq-q">
+          Can I connect multiple different input sources?
+          <span class="faq-pm">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Yes — we connect cable TV, satellite, streaming boxes, gaming consoles, PCs, Blu-ray players, and any other HDMI source. We can also configure systems to switch between sources on a schedule or with a single remote button.</p>
+        </div>
+      </div>
+
+      <div class="faq-item rv d1">
+        <div class="faq-q">
+          How long does a typical installation take?
+          <span class="faq-pm">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Most residential installations are completed in 1–2 days. Larger commercial projects may take 3–5 days depending on the scope. We'll give you a precise timeline before work begins so you can plan accordingly.</p>
+        </div>
+      </div>
+
+      <div class="faq-item rv d2">
+        <div class="faq-q">
+          Do you serve my area?
+          <span class="faq-pm">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Yes — we serve all 50 states. Our installation teams travel nationwide. Call us at 888-205-9035 or send a message with your location and project details, and we'll confirm availability and scheduling.</p>
+        </div>
+      </div>
+
+      <div class="faq-item rv d1">
+        <div class="faq-q">
+          What's the difference between US Video Walls and Medical Murals?
+          <span class="faq-pm">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Medical Murals (our sister company) specializes in LED faux windows for hospitals and medical offices — displaying beautiful scenic images that reduce patient stress. US Video Walls handles full video wall systems with live video inputs for homes and commercial spaces. We share the same expertise and image library of 100,000+ photographs.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="ft-grid">
-    <div class="ft-about">
-      <a href="/" class="logo" style="margin-bottom:.5rem;display:inline-flex">
-        <div class="logo-mark" style="width:36px;height:36px;border-radius:10px">
-          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white;position:relative;z-index:1"><path d="M12 2C9 7 4 9 4 14a8 8 0 0016 0c0-5-5-7-8-12z"/></svg>
-        </div>
-        <span class="logo-name">US<em>Water</em>Walls</span>
+  <div class="wrap">
+    <div class="ft-top">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+        <span class="logo-text">US Video Walls</span>
       </a>
-      <p>Crafting extraordinary water features for luxury homes, hotels, and commercial spaces across the United States since 2004.</p>
-      <div class="ft-socials">
-        <a href="#" class="fsoc">f</a>
-        <a href="#" class="fsoc">in</a>
-        <a href="#" class="fsoc">ig</a>
-        <a href="#" class="fsoc">yt</a>
+      <nav class="ft-nav">
+        <a href="about.html">About</a>
+        <a href="products.html">Products</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://www.medicalmurals.com" target="_blank" rel="noopener">Medical Murals</a>
+      </nav>
+    </div>
+    <div class="ft-mid">
+      <div class="ft-contact">
+        <a href="tel:8882059035">888-205-9035</a>
+        <a href="mailto:info@usvideowalls.com">info@usvideowalls.com</a>
       </div>
     </div>
-    <div class="ft-col">
-      <h5>Products</h5>
-      <ul>
-        <li><a href="products.html">Bubble Walls</a></li>
-        <li><a href="products.html">Floor Fountains</a></li>
-        <li><a href="products.html">Wall Waterfalls</a></li>
-        <li><a href="products.html">LED Mist Fountains</a></li>
-        <li><a href="products.html">Custom Designs</a></li>
-      </ul>
-    </div>
-    <div class="ft-col">
-      <h5>Company</h5>
-      <ul>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="gallery.html">Portfolio</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="about.html">Our Process</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="ft-col">
-      <h5>Contact</h5>
-      <ul>
-        <li><a href="tel:+18005551234">(800) 555-1234</a></li>
-        <li><a href="mailto:info@uswaterwalls.com">info@uswaterwalls.com</a></li>
-        <li><a href="contact.html">Get a Quote</a></li>
-        <li><a href="contact.html">Maintenance</a></li>
-        <li><a href="contact.html">Support</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="ft-bot">
-    <span>© 2024 US Water Walls &amp; Waterfalls. All rights reserved.</span>
-    <div class="ft-badge">✦ Premium Water Features Since 2004</div>
-    <div style="display:flex;gap:1.4rem">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Sitemap</a>
+    <div class="ft-bot">
+      <span>&copy; 2024 US Video Walls. All rights reserved.</span>
+      <div class="ft-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
     </div>
   </div>
 </footer>
+
 <script src="assets/app.js"></script>
 </body>
 </html>
