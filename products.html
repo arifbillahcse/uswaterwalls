@@ -4,17 +4,178 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Products — US Video Walls</title>
-<meta name="description" content="Explore our video wall products — residential home theaters, commercial displays, hospitality installations, and LED faux windows."/>
+<meta name="description" content="Explore our video wall products — residential home theaters, corporate displays, hospitality installations, HD 3D systems, and LED faux windows."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="assets/style.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ══ BASE ══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#07080e;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#07080e;--bg2:#0d1020;--bg3:#111428;
+  --blue:#1b68ff;--b2:#0f4dcc;
+  --bglo:rgba(27,104,255,.14);--bgb:rgba(27,104,255,.3);
+  --amb:#f5a623;
+  --dim:rgba(255,255,255,.55);--mu:rgba(255,255,255,.25);
+  --bdr:rgba(255,255,255,.07);--bdbl:rgba(27,104,255,.28);
+  --max:1200px;--pad:clamp(1.5rem,5vw,4rem);
+}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ══ LOGO ══ */
+.logo{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5px;width:22px;height:22px;flex-shrink:0}
+.logo-grid span{display:block;border-radius:2px;background:#fff;transition:background .3s}
+.logo-text{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:600;color:#fff;letter-spacing:.02em}
+
+/* ══ NAV — always dark ══ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:1.2rem 5%;display:flex;align-items:center;justify-content:space-between;transition:all .45s ease;background:rgba(7,8,14,.3);backdrop-filter:blur(8px);border-bottom:1px solid rgba(27,104,255,.1)}
+#nav.scrolled{background:rgba(7,8,14,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1rem 5%;border-bottom:1px solid rgba(27,104,255,.15);box-shadow:0 2px 30px rgba(0,0,0,.4)}
+.nav-links{display:flex;align-items:center;gap:2.2rem}
+.nav-links a{color:rgba(255,255,255,.6);font-size:.85rem;font-weight:500;letter-spacing:.02em;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--blue);transition:width .3s}
+.nav-links a:hover{color:#fff}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--blue)!important;color:#fff!important;padding:.52rem 1.3rem!important;border-radius:4px!important;font-size:.83rem!important;font-weight:600!important;transition:all .3s!important;letter-spacing:.02em!important}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--b2)!important;transform:translateY(-1px)!important}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.ham span{display:block;width:22px;height:1.5px;background:#fff;border-radius:1px;transition:all .3s}
+.ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mob-nav{position:fixed;inset:0;z-index:880;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;opacity:0;pointer-events:none;transition:opacity .35s}
+.mob-nav.open{opacity:1;pointer-events:all}
+.mob-nav a{font-family:'Space Grotesk',sans-serif;font-size:2rem;color:rgba(255,255,255,.7);transition:color .3s}
+.mob-nav a:hover{color:var(--blue)}
+.mob-cta{font-size:.9rem!important;font-family:'Inter',sans-serif!important;background:var(--blue);color:#fff!important;padding:.75rem 2.2rem;border-radius:4px;margin-top:.5rem}
+
+/* ══ PAGE HERO ══ */
+.ph{position:relative;min-height:52vh;display:flex;align-items:flex-end;background:var(--bg);overflow:hidden;padding-top:80px}
+.ph-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(27,104,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(27,104,255,.04) 1px,transparent 1px);background-size:60px 60px}
+.ph-glow{position:absolute;top:-200px;left:-100px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(27,104,255,.08) 0%,transparent 65%);pointer-events:none}
+.ph-inner{position:relative;z-index:5;max-width:var(--max);margin:0 auto;padding:0 var(--pad) 5rem}
+.breadcrumbs{display:flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:1.5rem}
+.breadcrumbs a{color:var(--mu);transition:color .3s}
+.breadcrumbs a:hover{color:var(--blue)}
+.ph-tag{display:inline-flex;align-items:center;gap:.7rem;font-size:.67rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:1rem}
+.ph-tag::before{content:'';width:24px;height:1px;background:var(--blue)}
+.ph h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.8rem,6vw,6rem);font-weight:700;letter-spacing:-.03em;line-height:.95;color:#fff}
+.ph h1 em{color:var(--blue);font-style:normal;text-shadow:0 0 40px rgba(27,104,255,.5)}
+.ph-sub{max-width:560px;color:var(--dim);line-height:1.8;margin-top:1.4rem;font-size:1rem}
+.ph::after{content:'';position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(27,104,255,.5),transparent);animation:phScan 5s linear infinite;pointer-events:none;z-index:4}
+@keyframes phScan{from{top:80px}to{top:100%}}
+
+/* ══ SEC LABEL ══ */
+.sec-lbl{display:inline-flex;align-items:center;gap:.7rem;font-size:.67rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:.9rem}
+.sec-lbl::before{content:'';width:24px;height:1px;background:var(--blue)}
+.sec-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3.8rem);font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1}
+.sec-h em{color:var(--blue);font-style:normal}
+
+/* ══ REVEAL ══ */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.34s}
+
+/* ══ BUTTONS ══ */
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue);color:#fff;padding:.9rem 2rem;border-radius:4px;font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.04em;transition:all .3s}
+.btn-primary:hover{background:var(--b2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(27,104,255,.4)}
+.btn-outline{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--bdbl);color:var(--blue);padding:.85rem 2rem;border-radius:4px;font-family:'Space Grotesk',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.04em;transition:all .3s}
+.btn-outline:hover{background:var(--bglo);border-color:var(--blue)}
+
+/* ══ PRODUCT ROWS ══ */
+.products-sec{background:var(--bg2);padding:8rem var(--pad)}
+.prod-row{max-width:var(--max);margin:0 auto 6rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.prod-row:last-child{margin-bottom:0}
+.prod-row.alt .prod-media{order:2}
+.prod-row.alt .prod-body{order:1}
+.prod-media{position:relative}
+.prod-img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:2px;border:1px solid var(--bdr)}
+.prod-badge{
+  position:absolute;top:1.2rem;left:1.2rem;
+  background:var(--blue);color:#fff;
+  font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:.35rem .8rem;border-radius:2px;
+}
+.prod-badge.amber{background:var(--amb);color:#07080e}
+.prod-body .sec-lbl{display:inline-flex}
+.prod-body h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1.1;margin-bottom:1.2rem}
+.prod-body p{color:var(--dim);line-height:1.85;font-size:.95rem;margin-bottom:1rem}
+.prod-tags{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.5rem 0 2rem}
+.prod-tag{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);border:1px solid var(--bdbl);background:var(--bglo);padding:.3rem .75rem;border-radius:2px}
+.prod-divider{width:100%;height:1px;background:var(--bdr);margin:4rem 0}
+
+/* ══ INCLUDES ══ */
+.includes-sec{background:var(--bg);padding:8rem var(--pad)}
+.includes-inner{max-width:var(--max);margin:0 auto}
+.includes-hdr{text-align:center;margin-bottom:4rem}
+.inc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr)}
+.inc-card{background:var(--bg);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .4s}
+.inc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.inc-card:hover{background:var(--bg2)}
+.inc-card:hover::after{transform:scaleX(1)}
+.inc-num{font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:700;color:var(--blue);letter-spacing:.2em;margin-bottom:1.2rem;display:block;opacity:.6}
+.inc-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.7rem}
+.inc-card p{color:var(--mu);font-size:.88rem;line-height:1.7}
+
+/* ══ CTA BAND ══ */
+.cta-band{background:var(--bg2);padding:8rem var(--pad);text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--bdr)}
+.cta-band::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(27,104,255,.08) 0%,transparent 65%);pointer-events:none}
+.cta-inner{position:relative;z-index:2;max-width:640px;margin:0 auto}
+.cta-tag{display:inline-flex;align-items:center;gap:.7rem;font-size:.67rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:1.2rem;justify-content:center}
+.cta-tag::before,.cta-tag::after{content:'';width:24px;height:1px;background:var(--blue)}
+.cta-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:700;letter-spacing:-.03em;line-height:.95;color:#fff;margin-bottom:1rem}
+.cta-h em{color:var(--blue);font-style:normal}
+.cta-p{color:var(--dim);font-size:1rem;line-height:1.8;margin-bottom:2.5rem}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.cta-divider{color:var(--mu);font-size:.78rem;margin:1.5rem 0;display:flex;align-items:center;gap:.8rem;justify-content:center}
+.cta-divider::before,.cta-divider::after{content:'';flex:0 0 60px;height:1px;background:var(--bdr)}
+.cta-phone{display:inline-flex;align-items:center;gap:.6rem;font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:var(--amb);letter-spacing:.02em;transition:color .3s}
+.cta-phone:hover{color:#fff}
+
+/* ══ FOOTER ══ */
+footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--pad) 2.5rem}
+.ft-inner{max-width:var(--max);margin:0 auto}
+.ft-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:2.5rem;border-bottom:1px solid var(--bdr);flex-wrap:wrap;gap:1.5rem}
+.ft-nav{display:flex;gap:2rem;flex-wrap:wrap}
+.ft-nav a{font-size:.84rem;color:var(--mu);transition:color .3s}
+.ft-nav a:hover{color:#fff}
+.ft-mid{padding:2rem 0;border-bottom:1px solid var(--bdr);display:flex;gap:2.5rem;flex-wrap:wrap}
+.ft-mid a{font-size:.88rem;color:rgba(255,255,255,.4);transition:color .3s}
+.ft-mid a:hover{color:var(--blue)}
+.ft-bot{display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem;flex-wrap:wrap;gap:1rem;font-size:.76rem;color:rgba(255,255,255,.2)}
+.ft-legal{display:flex;gap:1.5rem}
+.ft-legal a{color:rgba(255,255,255,.2);font-size:.76rem;transition:color .3s}
+.ft-legal a:hover{color:rgba(255,255,255,.5)}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .prod-row,.prod-row.alt .prod-media,.prod-row.alt .prod-body{grid-template-columns:1fr;order:unset}
+  .prod-row{grid-template-columns:1fr;gap:3rem}
+  .prod-row.alt .prod-media{order:0}
+  .inc-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}.ham{display:flex}
+  .inc-grid{grid-template-columns:1fr}
+  .ft-top{flex-direction:column;align-items:flex-start}
+  .ft-bot{flex-direction:column}
+  .ph h1{font-size:clamp(2.2rem,8vw,4rem)}
+}
+</style>
 </head>
 <body>
 
 <nav id="nav">
   <a href="index.html" class="logo">
-    <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+    <div class="logo-grid"><span></span><span></span><span></span><span></span></div>
     <span class="logo-text">US Video Walls</span>
   </a>
   <ul class="nav-links">
@@ -37,182 +198,209 @@
   <a href="contact.html" onclick="closeMob()" class="mob-cta">Get a Quote</a>
 </div>
 
-<section id="page-hero">
-  <div class="ph-bg" style="background-image:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=60')"></div>
-  <div class="ph-overlay"></div>
-  <div class="ph-inner rv">
+<!-- PAGE HERO -->
+<section class="ph">
+  <div class="ph-grid"></div>
+  <div class="ph-glow"></div>
+  <div class="ph-inner">
     <div class="breadcrumbs">
       <a href="index.html">Home</a><span>/</span><span>Products</span>
     </div>
-    <h1>Our <em>Products</em></h1>
-    <p>Hi-definition video wall systems for every space — residential, commercial, and hospitality. Any configuration, any input, installed anywhere.</p>
+    <div class="ph-tag">What We Build</div>
+    <h1>Our <em>Products.</em></h1>
+    <p class="ph-sub">Hi-definition video wall systems for every space — residential, commercial, and hospitality. Any configuration, any input, installed anywhere in the country.</p>
   </div>
 </section>
 
-<section style="background:var(--white);padding:7rem var(--pad)">
-  <div class="product-list">
+<!-- PRODUCTS -->
+<section class="products-sec">
 
-    <div class="prod-row rv">
-      <div class="prod-media">
-        <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=900&q=85" alt="Home theater video wall" loading="lazy"/>
-        <div class="prod-badge">Most Popular</div>
-      </div>
-      <div class="prod-body">
-        <span class="sec-label">Residential</span>
-        <h3>Home Theater<br>Video Wall</h3>
-        <p>Transform your living room or dedicated home theater into a true cinematic experience. Calibrated for ambient lighting and custom-sized to fit any wall exactly.</p>
-        <p>Cable, satellite, streaming, gaming — all inputs, one seamless display. Individual panels or one unified big picture.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">4K &amp; 8K</span>
-          <span class="prod-tag">Custom Sizing</span>
-          <span class="prod-tag">Any Input</span>
-          <span class="prod-tag">Smart Home Integration</span>
-        </div>
-        <a href="contact.html" class="btn-blue">Get a Quote &rarr;</a>
-      </div>
+  <!-- 1: Home Theater -->
+  <div class="prod-row rv">
+    <div class="prod-media">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=900&q=85" alt="Home theater video wall" loading="lazy"/>
+      <div class="prod-badge">Most Popular</div>
     </div>
-
-    <div class="prod-row alt rv">
-      <div class="prod-media">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=85" alt="Corporate office video wall" loading="lazy"/>
-        <div class="prod-badge">Commercial</div>
+    <div class="prod-body">
+      <div class="sec-lbl">Residential</div>
+      <h2>Home Theater<br>Video Wall</h2>
+      <p>Transform your living room or dedicated home theater into a true cinematic experience. Calibrated for ambient lighting and custom-sized to fit any wall exactly.</p>
+      <p>Cable, satellite, streaming, gaming — all inputs, one seamless display. Individual panels or one unified big picture.</p>
+      <div class="prod-tags">
+        <span class="prod-tag">4K &amp; 8K</span>
+        <span class="prod-tag">Custom Sizing</span>
+        <span class="prod-tag">Any Input</span>
+        <span class="prod-tag">Smart Home</span>
       </div>
-      <div class="prod-body">
-        <span class="sec-label">Commercial</span>
-        <h3>Corporate &amp; Office<br>Display Walls</h3>
-        <p>Make an impression on clients the moment they walk through the door. Perfect for lobby displays, boardrooms, command centers, and open office environments.</p>
-        <p>Live data, brand content, presentations, or rotating imagery — managed from a central system. Designed for financial firms, tech companies, law offices, and more.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">Multi-Source Input</span>
-          <span class="prod-tag">24/7 Capable</span>
-          <span class="prod-tag">Remote Management</span>
-          <span class="prod-tag">Narrow Bezel</span>
-        </div>
-        <a href="contact.html" class="btn-blue">Get a Quote &rarr;</a>
-      </div>
+      <a href="contact.html" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Get a Quote
+      </a>
     </div>
-
-    <div class="prod-row rv">
-      <div class="prod-media">
-        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=900&q=85" alt="Hotel lobby video wall" loading="lazy"/>
-        <div class="prod-badge">Hospitality</div>
-      </div>
-      <div class="prod-body">
-        <span class="sec-label">Hospitality</span>
-        <h3>Hotel &amp; Venue<br>Installations</h3>
-        <p>Create unforgettable first impressions in hotel lobbies, restaurants, bars, and event spaces. Built for high-traffic environments with 24/7 commercial reliability.</p>
-        <p>Stunning scenic imagery, branded content, live sports, or ambient video — designed to elevate every guest experience.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">High Brightness</span>
-          <span class="prod-tag">Wide Viewing Angle</span>
-          <span class="prod-tag">Commercial Grade</span>
-          <span class="prod-tag">Content Management</span>
-        </div>
-        <a href="contact.html" class="btn-blue">Get a Quote &rarr;</a>
-      </div>
-    </div>
-
-    <div class="prod-row alt rv">
-      <div class="prod-media">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=85" alt="HD 3D screen systems" loading="lazy"/>
-        <div class="prod-badge">Premium</div>
-      </div>
-      <div class="prod-body">
-        <span class="sec-label">Premium</span>
-        <h3>HD 3D Screen<br>Systems</h3>
-        <p>Take the experience into another dimension. Our HD 3D systems deliver immersive depth that transforms any space into a cinematic environment.</p>
-        <p>Perfect for high-end home theaters, luxury showrooms, museums, and entertainment venues where maximum impact is the goal.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">Glasses-Free Options</span>
-          <span class="prod-tag">Ultra HD</span>
-          <span class="prod-tag">Immersive Depth</span>
-          <span class="prod-tag">Custom Content</span>
-        </div>
-        <a href="contact.html" class="btn-blue">Get a Quote &rarr;</a>
-      </div>
-    </div>
-
-    <div class="prod-row rv">
-      <div class="prod-media">
-        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=900&q=85" alt="LED faux window sky panels" loading="lazy"/>
-        <div class="prod-badge">Via Medical Murals</div>
-      </div>
-      <div class="prod-body">
-        <span class="sec-label">Sister Company</span>
-        <h3>LED Faux Windows<br>&amp; Sky Panels</h3>
-        <p>Through our sister company <strong>Medical Murals</strong>, we offer stunning LED faux windows that bring the outside world in — wherever real windows aren't possible. Over <strong>100,000 images</strong> from renowned photographers.</p>
-        <p>Originally designed for hospitals, these systems are available for any interior space — offices, basements, meeting rooms, or any windowless area.</p>
-        <div class="prod-tags">
-          <span class="prod-tag">100,000+ Images</span>
-          <span class="prod-tag">Custom Photography</span>
-          <span class="prod-tag">Medical Grade</span>
-          <span class="prod-tag">Natural Light Effect</span>
-        </div>
-        <a href="https://www.medicalmurals.com" target="_blank" rel="noopener" class="btn-outline">Visit MedicalMurals.com &rarr;</a>
-      </div>
-    </div>
-
   </div>
+
+  <!-- 2: Corporate -->
+  <div class="prod-row alt rv">
+    <div class="prod-media">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=85" alt="Corporate office video wall" loading="lazy"/>
+      <div class="prod-badge">Commercial</div>
+    </div>
+    <div class="prod-body">
+      <div class="sec-lbl">Commercial</div>
+      <h2>Corporate &amp; Office<br>Display Walls</h2>
+      <p>Make an impression on clients the moment they walk through the door. Perfect for lobby displays, boardrooms, command centers, and open office environments.</p>
+      <p>Live data, brand content, presentations, or rotating imagery — managed from a central system. Designed for financial firms, tech companies, and law offices.</p>
+      <div class="prod-tags">
+        <span class="prod-tag">Multi-Source</span>
+        <span class="prod-tag">24/7 Capable</span>
+        <span class="prod-tag">Remote Managed</span>
+        <span class="prod-tag">Narrow Bezel</span>
+      </div>
+      <a href="contact.html" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Get a Quote
+      </a>
+    </div>
+  </div>
+
+  <!-- 3: Hospitality -->
+  <div class="prod-row rv">
+    <div class="prod-media">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=900&q=85" alt="Hotel lobby video wall" loading="lazy"/>
+      <div class="prod-badge">Hospitality</div>
+    </div>
+    <div class="prod-body">
+      <div class="sec-lbl">Hospitality</div>
+      <h2>Hotel &amp; Venue<br>Installations</h2>
+      <p>Create unforgettable first impressions in hotel lobbies, restaurants, bars, and event spaces. Built for high-traffic environments with 24/7 commercial reliability.</p>
+      <p>Stunning scenic imagery, branded content, live sports, or ambient video — designed to elevate every guest experience from the moment they arrive.</p>
+      <div class="prod-tags">
+        <span class="prod-tag">High Brightness</span>
+        <span class="prod-tag">Wide Angle</span>
+        <span class="prod-tag">Commercial Grade</span>
+        <span class="prod-tag">Content Mgmt</span>
+      </div>
+      <a href="contact.html" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Get a Quote
+      </a>
+    </div>
+  </div>
+
+  <!-- 4: HD 3D -->
+  <div class="prod-row alt rv">
+    <div class="prod-media">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=85" alt="HD 3D screen systems" loading="lazy"/>
+      <div class="prod-badge amber">Premium</div>
+    </div>
+    <div class="prod-body">
+      <div class="sec-lbl">Premium</div>
+      <h2>HD 3D Screen<br>Systems</h2>
+      <p>Take the experience into another dimension. Our HD 3D systems deliver immersive depth that transforms any space into a cinematic environment.</p>
+      <p>Perfect for high-end home theaters, luxury showrooms, museums, and entertainment venues where maximum impact is the absolute goal.</p>
+      <div class="prod-tags">
+        <span class="prod-tag">Glasses-Free</span>
+        <span class="prod-tag">Ultra HD</span>
+        <span class="prod-tag">Immersive Depth</span>
+        <span class="prod-tag">Custom Content</span>
+      </div>
+      <a href="contact.html" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Get a Quote
+      </a>
+    </div>
+  </div>
+
+  <!-- 5: Medical Murals -->
+  <div class="prod-row rv">
+    <div class="prod-media">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=900&q=85" alt="LED faux window sky panels" loading="lazy"/>
+      <div class="prod-badge">Via Medical Murals</div>
+    </div>
+    <div class="prod-body">
+      <div class="sec-lbl">Sister Company</div>
+      <h2>LED Faux Windows<br>&amp; Sky Panels</h2>
+      <p>Through our sister company <strong style="color:#fff">Medical Murals</strong>, we offer stunning LED faux windows that bring the outside world in — wherever real windows aren't possible. Over <strong style="color:var(--blue)">100,000 images</strong> from renowned photographers.</p>
+      <p>Originally designed for hospitals, these systems are available for any interior space — offices, basements, meeting rooms, or any windowless environment.</p>
+      <div class="prod-tags">
+        <span class="prod-tag">100K+ Images</span>
+        <span class="prod-tag">Custom Photo</span>
+        <span class="prod-tag">Medical Grade</span>
+        <span class="prod-tag">Natural Light</span>
+      </div>
+      <a href="https://www.medicalmurals.com" target="_blank" rel="noopener" class="btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Visit MedicalMurals.com
+      </a>
+    </div>
+  </div>
+
 </section>
 
-<section style="background:var(--off);padding:6rem var(--pad)">
-  <div class="wrap">
-    <div class="rv" style="text-align:center;margin-bottom:3.5rem">
-      <span class="sec-label" style="justify-content:center"><span>All Systems Include</span></span>
-      <h2 style="font-size:clamp(2.2rem,3.5vw,3.8rem);margin-top:0.5rem">Standard with <em>Every Install</em></h2>
+<!-- WHAT'S INCLUDED -->
+<section class="includes-sec">
+  <div class="includes-inner">
+    <div class="includes-hdr rv">
+      <div class="sec-lbl" style="display:flex;justify-content:center">All Systems Include</div>
+      <h2 class="sec-h">Standard With <em>Every Install.</em></h2>
     </div>
-    <ul class="feat-list">
-      <li class="feat-row rv d1">
-        <span class="feat-num">01</span>
+    <div class="inc-grid">
+      <div class="inc-card rv d1">
+        <span class="inc-num">01</span>
         <h3>Custom Configuration Design</h3>
         <p>We design the exact screen layout for your space — any arrangement you can imagine.</p>
-      </li>
-      <li class="feat-row rv d2">
-        <span class="feat-num">02</span>
+      </div>
+      <div class="inc-card rv d2">
+        <span class="inc-num">02</span>
         <h3>Professional Installation</h3>
         <p>Our install teams handle everything — mounting, cable management, calibration, and commissioning.</p>
-      </li>
-      <li class="feat-row rv d3">
-        <span class="feat-num">03</span>
+      </div>
+      <div class="inc-card rv d3">
+        <span class="inc-num">03</span>
         <h3>Input from Any Source</h3>
         <p>Cable, satellite, HDMI, streaming, PC, gaming — we wire every input cleanly and professionally.</p>
-      </li>
-      <li class="feat-row rv d1">
-        <span class="feat-num">04</span>
-        <h3>Individual or Unified Display Modes</h3>
+      </div>
+      <div class="inc-card rv d1">
+        <span class="inc-num">04</span>
+        <h3>Individual or Unified Display</h3>
         <p>Each screen shows different content, or all combine into one seamless panoramic display.</p>
-      </li>
-      <li class="feat-row rv d2">
-        <span class="feat-num">05</span>
+      </div>
+      <div class="inc-card rv d2">
+        <span class="inc-num">05</span>
         <h3>Training &amp; Ongoing Support</h3>
-        <p>We train you on every feature and remain available for long-term support.</p>
-      </li>
-      <li class="feat-row rv d3">
-        <span class="feat-num">06</span>
+        <p>We train you on every feature and remain available for long-term support after installation.</p>
+      </div>
+      <div class="inc-card rv d3">
+        <span class="inc-num">06</span>
         <h3>Nationwide Service</h3>
-        <p>All 50 states. Wherever you are, we can design and install a world-class video wall system.</p>
-      </li>
-    </ul>
+        <p>All 50 states. Wherever you are, we design and install a world-class video wall system.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="cta-band" style="padding:7rem var(--pad)">
-  <div class="wrap rv">
-    <span class="sec-label light">Get Started</span>
-    <h2>Tell Us About<br><em>Your Space.</em></h2>
-    <p>Every project is unique. Share your vision and we'll design the perfect solution — no obligation.</p>
-    <div class="cta-btns" style="justify-content:center">
-      <a href="tel:8882059035" class="btn-white">Call 888-205-9035</a>
-      <a href="contact.html" class="btn-wire-light">Send a Message &rarr;</a>
+<!-- CTA -->
+<section class="cta-band">
+  <div class="cta-inner rv">
+    <div class="cta-tag">Get Started</div>
+    <h2 class="cta-h">Tell Us About<br><em>Your Space.</em></h2>
+    <p class="cta-p">Every project is unique. Share your vision and we'll design the perfect solution — no obligation, no pressure.</p>
+    <div class="cta-btns">
+      <a href="contact.html" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Send a Message
+      </a>
     </div>
+    <div class="cta-divider">or call us directly</div>
+    <a href="tel:8882059035" class="cta-phone">888-205-9035</a>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">
+  <div class="ft-inner">
     <div class="ft-top">
       <a href="index.html" class="logo">
-        <div class="logo-icon"><span></span><span></span><span></span><span></span></div>
+        <div class="logo-grid"><span></span><span></span><span></span><span></span></div>
         <span class="logo-text">US Video Walls</span>
       </a>
       <nav class="ft-nav">
@@ -224,18 +412,27 @@
       </nav>
     </div>
     <div class="ft-mid">
-      <div class="ft-contact">
-        <a href="tel:8882059035">888-205-9035</a>
-        <a href="mailto:info@usvideowalls.com">info@usvideowalls.com</a>
-      </div>
+      <a href="tel:8882059035">888-205-9035</a>
+      <a href="mailto:info@usvideowalls.com">info@usvideowalls.com</a>
     </div>
     <div class="ft-bot">
-      <span>&copy; 2024 US Video Walls. All rights reserved.</span>
+      <span>&copy; 2025 US Video Walls. All rights reserved.</span>
       <div class="ft-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
     </div>
   </div>
 </footer>
 
-<script src="assets/app.js"></script>
+<script>
+(function(){
+  const nav=document.getElementById('nav');
+  const ham=document.getElementById('ham');
+  const mob=document.getElementById('mobnav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+  ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open')});
+  window.closeMob=()=>{ham.classList.remove('open');mob.classList.remove('open')};
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+})();
+</script>
 </body>
 </html>
