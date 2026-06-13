@@ -77,9 +77,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);
 /* hero background photo layer */
 .hero-photo{
   position:absolute;inset:0;
-  background-image:url('../images/gallery/1%20(1).jpg');
+  background-image:url('../images/gallery/1.jpg');
   background-size:cover;background-position:center;
-  opacity:.22;
+  opacity:.25;
 }
 .hero-bg{
   position:absolute;inset:0;
@@ -311,11 +311,11 @@ section{padding:6rem 5%}
 
 /* product images */
 /* reliable unsplash IDs verified for water/luxury interiors */
-.pi-1{background-image:url('../images/products/bp-om-workspace-va-med-cntr-5.jpg')}
-.pi-2{background-image:url('../images/products/Embassy-Suites-Memphis.jpg')}
-.pi-3{background-image:url('../images/products/Bank-of-Labor.jpg')}
-.pi-4{background-image:url('../images/products/Auto-Owners-1.jpg')}
-.pi-5{background-image:url('../images/products/DSCN1167.jpg')}
+.pi-1{background-image:url('../images/gallery/1.jpg')}
+.pi-2{background-image:url('../images/gallery/2.jpg')}
+.pi-3{background-image:url('../images/gallery/3.jpg')}
+.pi-4{background-image:url('../images/gallery/7.jpg')}
+.pi-5{background-image:url('../images/gallery/6.jpg')}
 
 /* fallback gradient when image fails */
 .pi-1{background-color:#061420}
@@ -453,12 +453,12 @@ section{padding:6rem 5%}
 .btn-teal-out:hover{background:var(--teal);color:var(--navy);transform:translateY(-3px);box-shadow:0 10px 28px rgba(62,207,190,.25)}
 
 /* gallery images */
-.gi-1{background-image:url('../images/gallery/1%20(1).jpg');background-color:#060f20}
+.gi-1{background-image:url('../images/gallery/1.jpg');background-color:#060f20}
 .gi-2{background-image:url('../images/gallery/2.jpg');background-color:#0d1528}
-.gi-3{background-image:url('../images/gallery/4.jpg');background-color:#0a2030}
-.gi-4{background-image:url('../images/gallery/5.jpg');background-color:#1a1028}
-.gi-5{background-image:url('../images/gallery/3%20(1).jpg');background-color:#201508}
-.gi-6{background-image:url('../images/gallery/2-3.jpg');background-color:#060f1e}
+.gi-3{background-image:url('../images/gallery/3.jpg');background-color:#0a2030}
+.gi-4{background-image:url('../images/gallery/4.jpg');background-color:#061420}
+.gi-5{background-image:url('../images/gallery/7.jpg');background-color:#1a1028}
+.gi-6{background-image:url('../images/gallery/5.jpg');background-color:#060f1e}
 
 /* ─────────────────── TESTIMONIALS ─────────────────── */
 /* ── video section ── */
