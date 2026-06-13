@@ -468,7 +468,7 @@ section{padding:6rem 5%}
 
 #testimonials{background:var(--light)}
 .t-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
+  display:grid;grid-template-columns:repeat(4,1fr);
   gap:1.4rem;margin-top:3rem;
   max-width:var(--max);margin-left:auto;margin-right:auto;
 }
@@ -562,7 +562,7 @@ footer{background:#030911;padding:4rem 5% 2rem}
   .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:240px 240px 240px}
   .gal-item.wide{grid-column:span 2}
   .gal-item:nth-child(4){grid-column:span 2}
-  .t-grid{grid-template-columns:1fr 1fr}
+  .t-grid{grid-template-columns:1fr 1fr;}
   .ft-grid{grid-template-columns:1fr 1fr;gap:2rem}
 }
 @media(max-width:768px){
