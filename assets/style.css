@@ -234,6 +234,10 @@ h1.hero-h1 .gd{color:var(--gold)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
 
 /* ─────────────────── MARQUEE ─────────────────── */
+/* ── header photo strip ── */
+.header-photo-strip{width:100%;line-height:0;overflow:hidden}
+.header-photo-strip img{width:100%;display:block;object-fit:cover}
+
 #marquee{
   background:var(--navy2);border-top:1px solid var(--br);border-bottom:1px solid var(--br);
   padding:1.2rem 0;overflow:hidden;
