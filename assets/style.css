@@ -238,6 +238,10 @@ h1.hero-h1 .gd{color:var(--gold)}
 .header-photo-strip{width:100%;line-height:0;overflow:hidden}
 .header-photo-strip img{width:100%;display:block;object-fit:cover}
 
+/* ── healthcare approved banner ── */
+.healthcare-banner{width:100%;line-height:0;background:#fff}
+.healthcare-banner img{width:100%;max-width:1260px;display:block;margin:0 auto;padding:1.2rem 1.5rem;box-sizing:border-box}
+
 #marquee{
   background:var(--navy2);border-top:1px solid var(--br);border-bottom:1px solid var(--br);
   padding:1.2rem 0;overflow:hidden;
