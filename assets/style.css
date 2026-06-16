@@ -241,6 +241,8 @@ h1.hero-h1 .gd{color:var(--gold)}
 /* ── healthcare approved banner ── */
 .healthcare-banner{width:100%;line-height:0;background:#fff}
 .healthcare-banner img{width:100%;max-width:1260px;display:block;margin:0 auto;padding:1.2rem 1.5rem;box-sizing:border-box}
+.promo-banner{width:100%;line-height:0;background:#060f1e}
+.promo-banner img{width:100%;display:block}
 
 #marquee{
   background:var(--navy2);border-top:1px solid var(--br);border-bottom:1px solid var(--br);
