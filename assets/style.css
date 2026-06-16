@@ -614,12 +614,12 @@ footer{background:#030911;padding:4rem 5% 2rem}
 .crumbs a{color:var(--teal);text-decoration:none}
 .crumbs a:hover{color:#fff}
 .crumbs span{opacity:.5}
-.pagehero h1{
+#pagehero h1{
   font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5vw,4.2rem);
   font-weight:600;color:#fff;line-height:1.1;margin-bottom:1rem;
 }
-.pagehero h1 .it{font-style:italic;color:var(--teal)}
-.pagehero p{color:rgba(255,255,255,.55);font-size:1.05rem;line-height:1.8;max-width:580px;margin:0 auto}
+#pagehero h1 .it{font-style:italic;color:var(--teal)}
+#pagehero p{color:rgba(255,255,255,.75);font-size:1.05rem;line-height:1.8;max-width:580px;margin:0 auto}
 
 /* ── ABOUT: STORY SPLIT ── */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:var(--max);margin:0 auto}
