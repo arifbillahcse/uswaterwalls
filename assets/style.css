@@ -470,6 +470,8 @@ section{padding:6rem 5%}
 /* ── video section ── */
 #video-section{padding:5rem 0 6rem;background:var(--navy2);position:relative;overflow:hidden}
 .vid-bg-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(62,207,190,.06) 0%,transparent 70%)}
+#video-section .sec-h{color:#fff}
+#video-section .sec-p{color:rgba(255,255,255,.65)}
 .vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:3rem}
 .vid-card{border-radius:16px;overflow:hidden;border:1px solid rgba(62,207,190,.18);box-shadow:0 16px 48px rgba(0,0,0,.45);transition:transform .3s,box-shadow .3s;background:#060f1e}
 .vid-card:hover{transform:translateY(-6px);box-shadow:0 28px 64px rgba(62,207,190,.18)}
