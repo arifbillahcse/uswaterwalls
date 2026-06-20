@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice INV-2847 - Medical Murals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .print-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .no-print {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .print-btn {
+            padding: 10px 20px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        .print-btn:hover {
+            background: #ff5252;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 20px;
+        }
+        .company-info h2 {
+            font-size: 28px;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .company-info p {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.8;
+        }
+        .invoice-title {
+            text-align: right;
+        }
+        .invoice-title h1 {
+            font-size: 32px;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        .invoice-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+        .invoice-detail-group {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 3px solid #ff6b6b;
+        }
+        .invoice-detail-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        .invoice-detail-value {
+            font-size: 14px;
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+        .customer-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 6px;
+        }
+        .customer-title {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .customer-name {
+            font-size: 18px;
+            color: #1a1a1a;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .customer-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+        .items-section {
+            margin-bottom: 40px;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .items-table th {
+            background: #1a1a1a;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .items-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        .items-table tr:last-child td {
+            border-bottom: none;
+        }
+        .item-description {
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+        .item-notes {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+        .amount-right {
+            text-align: right;
+        }
+        .summary-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 40px;
+        }
+        .summary-box {
+            width: 100%;
+            max-width: 350px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        .summary-row.subtotal {
+            color: #666;
+        }
+        .summary-row.tax {
+            color: #666;
+        }
+        .summary-row.total {
+            padding: 15px 0;
+            border-bottom: none;
+            border-top: 2px solid #ff6b6b;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .summary-label {
+            font-weight: 500;
+        }
+        .summary-value {
+            font-weight: 500;
+        }
+        .payment-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 3px solid #51cf66;
+        }
+        .payment-title {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .payment-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #fff3cd;
+            color: #856404;
+        }
+        .payment-details {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.8;
+        }
+        .terms-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #999;
+            line-height: 1.8;
+        }
+        .terms-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .print-container {
+                box-shadow: none;
+                padding: 20px;
+                max-width: 100%;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
+        <button class="print-btn" onclick="downloadPDF()">📥 Download PDF</button>
+        <p style="margin-top: 10px; font-size: 12px; color: #999;">Use your browser's Print function to save as PDF</p>
+    </div>
+
+    <div class="print-container">
+        <!-- Header -->
+        <div class="invoice-header">
+            <div class="company-info">
+                <h2>Medical Murals</h2>
+                <p>
+                    2541 N. Dale Mabry Hwy. Suite 169<br>
+                    Tampa, Florida 33607 USA<br>
+                    <br>
+                    Phone: +1 (407) 792-8916<br>
+                    Email: billing@medicalmurals.com
+                </p>
+            </div>
+            <div class="invoice-title">
+                <h1>INVOICE</h1>
+            </div>
+        </div>
+
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <div class="invoice-detail-group">
+                <div class="invoice-detail-label">Invoice Number</div>
+                <div class="invoice-detail-value">INV-2847</div>
+            </div>
+            <div class="invoice-detail-group">
+                <div class="invoice-detail-label">Invoice Date</div>
+                <div class="invoice-detail-value">July 20, 2024</div>
+            </div>
+            <div class="invoice-detail-group">
+                <div class="invoice-detail-label">Due Date</div>
+                <div class="invoice-detail-value">August 5, 2024</div>
+            </div>
+            <div class="invoice-detail-group">
+                <div class="invoice-detail-label">Project Reference</div>
+                <div class="invoice-detail-value">Project #2847</div>
+            </div>
+        </div>
+
+        <!-- Bill To -->
+        <div class="customer-section">
+            <div class="customer-title">Bill To</div>
+            <div class="customer-name">Denver Health Hospital</div>
+            <div class="customer-details">
+                Denver, Colorado<br>
+                Contact: Procurement Department<br>
+                Email: procurement@denverhealth.com<br>
+                Phone: +1 (303) 555-0147
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="items-section">
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50%;">Description</th>
+                        <th style="width: 15%; text-align: center;">Quantity</th>
+                        <th style="width: 18%; text-align: right;">Unit Price</th>
+                        <th style="width: 17%; text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="item-description">Backlit Mural - 4×6 One Piece</div>
+                            <div class="item-notes">Bayer® Healthcare Grade Acrylic with custom nature scene photography. Includes Crystal Skylights™ high-gloss finish and MRI-safe non-ferrous LED lighting system.</div>
+                        </td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: right;">$35,000.00</td>
+                        <td style="text-align: right;">$35,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-description">LED Lighting System Installation</div>
+                            <div class="item-notes">Professional non-ferrous LED system setup, calibration, and safety inspection for MRI room compatibility.</div>
+                        </td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: right;">$8,000.00</td>
+                        <td style="text-align: right;">$8,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-description">Professional Installation & Setup</div>
+                            <div class="item-notes">On-site installation, wall mounting, electrical connection, and final quality assurance inspection.</div>
+                        </td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: right;">$2,500.00</td>
+                        <td style="text-align: right;">$2,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="item-description">Freight & Shipping</div>
+                            <div class="item-notes">Expedited shipping, packaging insurance, and delivery to site.</div>
+                        </td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: right;">$1,500.00</td>
+                        <td style="text-align: right;">$1,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary-section">
+            <div class="summary-box">
+                <div class="summary-row subtotal">
+                    <span class="summary-label">Subtotal</span>
+                    <span class="summary-value">$47,000.00</span>
+                </div>
+                <div class="summary-row tax">
+                    <span class="summary-label">Tax (7%)</span>
+                    <span class="summary-value">$3,290.00</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Discount Applied</span>
+                    <span class="summary-value">-$1,605.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span class="summary-label">Total Due</span>
+                    <span class="summary-value">$48,685.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Status -->
+        <div class="payment-section">
+            <div class="payment-title">Payment Status</div>
+            <div class="payment-status">
+                <span class="status-badge">50% PAID ($24,342.50)</span>
+                <span style="color: #666; font-size: 13px;">Deposit received July 18, 2024</span>
+            </div>
+            <div class="payment-details">
+                <strong>Remaining Balance:</strong> $24,342.50<br>
+                <strong>Due Date:</strong> August 5, 2024<br>
+                <strong>Payment Method:</strong> Bank Transfer (ACH)<br>
+                <strong>Terms:</strong> 50% due on approval, 50% due upon completion
+            </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="terms-section">
+            <div class="terms-title">Terms & Conditions</div>
+            <p>
+                • Payment terms: Net 15 days from invoice date<br>
+                • 10-year warranty on all Bayer® acrylic products<br>
+                • MRI-safe LED systems certified for medical environments<br>
+                • Antimicrobial coating included (no additional charge)<br>
+                • Installation by certified technicians<br>
+                • Final 10-year warranty begins upon installation completion<br>
+                <br>
+                <strong>Note:</strong> This invoice is for the approved quote #2820. Please remit payment to the banking details provided in the payment section above. Overdue payments may incur late fees of 1.5% monthly.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>
+                Thank you for your business! | Medical Murals LLC | Tampa, Florida<br>
+                Invoice generated on July 20, 2024 | All prices in USD
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            alert('In production, this would download the invoice as PDF.\n\nFor now, use your browser\'s Print function (Ctrl+P or Cmd+P) and select "Save as PDF" as the printer.');
+        }
+    </script>
+</body>
+</html>

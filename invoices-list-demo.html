@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoices - Medical Murals Business Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d2d3d 100%);
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            font-size: 24px;
+            color: #ff6b6b;
+        }
+        .menu {
+            list-style: none;
+        }
+        .menu li {
+            margin-bottom: 12px;
+        }
+        .menu a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .menu a:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .menu a.active {
+            background: #ff6b6b;
+            color: white;
+        }
+        .menu i {
+            font-size: 16px;
+            min-width: 16px;
+        }
+        .main {
+            margin-left: 220px;
+            padding: 30px;
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .header p {
+            color: #999;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #1a1a1a;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        .btn-primary:hover {
+            background: #ff5252;
+            border-color: #ff5252;
+        }
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filter-bar select,
+        .filter-bar input {
+            padding: 8px 12px;
+            border: 0.5px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            background: white;
+            color: #1a1a1a;
+        }
+        .filter-bar select {
+            cursor: pointer;
+        }
+        .filter-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 0.5px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .metric-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .metric-subtext {
+            font-size: 13px;
+            color: #999;
+            margin-top: 6px;
+        }
+        .invoices-table {
+            background: white;
+            border-radius: 10px;
+            border: 0.5px solid #e0e0e0;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .invoices-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoices-table th {
+            background: #f5f5f5;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: #666;
+            border-bottom: 0.5px solid #e0e0e0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .invoices-table td {
+            padding: 14px 16px;
+            border-bottom: 0.5px solid #e0e0e0;
+            font-size: 14px;
+        }
+        .invoices-table tr:last-child td {
+            border-bottom: none;
+        }
+        .invoices-table tbody tr:hover {
+            background: #f9f9f9;
+            cursor: pointer;
+        }
+        .invoice-id {
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+        .client-info {
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+        .client-subtext {
+            color: #999;
+            font-size: 13px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .badge-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+        .badge-unpaid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .badge-partial {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .badge-overdue {
+            background: #f5c2c7;
+            color: #842029;
+        }
+        .amount {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .due-date {
+            color: #666;
+            font-size: 13px;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn {
+            padding: 6px 10px;
+            border: 0.5px solid #e0e0e0;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #1a1a1a;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .action-btn:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+        .action-btn-danger {
+            color: #721c24;
+            border-color: #f8d7da;
+        }
+        .action-btn-danger:hover {
+            background: #f8d7da;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+        @media (max-width: 1200px) {
+            .filter-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding: 10px;
+            }
+            .main {
+                margin-left: 60px;
+                padding: 20px;
+            }
+            .sidebar .logo span {
+                display: none;
+            }
+            .menu a span {
+                display: none;
+            }
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .invoices-table {
+                overflow-x: auto;
+            }
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-cube"></i>
+            <span>Portal</span>
+        </div>
+        <ul class="menu">
+            <li><a href="#" onclick="return false;"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a></li>
+            <li><a href="#" onclick="return false;"><i class="fas fa-briefcase"></i> <span>Projects</span></a></li>
+            <li><a href="#" onclick="return false;"><i class="fas fa-users"></i> <span>Customers</span></a></li>
+            <li><a href="#" onclick="return false;"><i class="fas fa-file-invoice"></i> <span>Quotes</span></a></li>
+            <li><a href="#" class="active" onclick="return false;"><i class="fas fa-receipt"></i> <span>Invoices</span></a></li>
+            <li><a href="#" onclick="return false;"><i class="fas fa-calendar"></i> <span>Schedule</span></a></li>
+            <li><a href="#" onclick="return false;"><i class="fas fa-sticky-note"></i> <span>Notes</span></a></li>
+            <li><a href="#" onclick="return false;"><i class="fas fa-chart-pie"></i> <span>Reports</span></a></li>
+            <li><a href="#" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;" onclick="return false;"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <div>
+                <h1>Invoices</h1>
+                <p>Manage all client invoices and track payments</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary"><i class="fas fa-plus"></i> Create Invoice</button>
+                <button class="btn"><i class="fas fa-download"></i> Export</button>
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Total Invoiced</div>
+                <div class="metric-value">$685,200</div>
+                <div class="metric-subtext">Lifetime total</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Paid This Month</div>
+                <div class="metric-value">$245,000</div>
+                <div class="metric-subtext">8 invoices</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Unpaid / Pending</div>
+                <div class="metric-value">$180,000</div>
+                <div class="metric-subtext">12 invoices</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Overdue</div>
+                <div class="metric-value">$45,000</div>
+                <div class="metric-subtext">2 invoices</div>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <div>
+                <span class="filter-label">Filter by Status:</span>
+            </div>
+            <select onchange="filterInvoices(this.value)">
+                <option value="all">All Invoices</option>
+                <option value="paid">Paid Only</option>
+                <option value="unpaid">Unpaid Only</option>
+                <option value="overdue">Overdue Only</option>
+                <option value="partial">Partially Paid</option>
+            </select>
+            <input type="text" placeholder="Search invoice # or client..." style="flex: 1; max-width: 300px;">
+            <button class="btn"><i class="fas fa-filter"></i> More Filters</button>
+        </div>
+
+        <div class="section-title">All Invoices</div>
+        <div class="invoices-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Client</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Days Remaining</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="invoice-id">INV-2847</span></td>
+                        <td>
+                            <div class="client-info">Denver Health</div>
+                            <div class="client-subtext">Backlit Mural 4×6</div>
+                        </td>
+                        <td><span class="amount">$48,685</span></td>
+                        <td><span class="badge badge-partial">Partial (50%)</span></td>
+                        <td><span class="due-date">Aug 5, 2024</span></td>
+                        <td><span style="color: #ff9800;">16 days</span></td>
+                        <td>
+                            <div class="actions">
+                                <a href="invoice-pdf-demo.html" class="action-btn" target="_blank"><i class="fas fa-eye"></i> View</a>
+                                <button class="action-btn"><i class="fas fa-download"></i> PDF</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="invoice-id">INV-2835</span></td>
+                        <td>
+                            <div class="client-info">VA Dallas</div>
+                            <div class="client-subtext">LED Panel Set</div>
+                        </td>
+                        <td><span class="amount">$22,500</span></td>
+                        <td><span class="badge badge-paid">Paid</span></td>
+                        <td><span class="due-date">Jun 28, 2024</span></td>
+                        <td><span style="color: #51cf66;">Paid</span></td>
+                        <td>
+                            <div class="actions">
+                                <a href="invoice-pdf-demo.html" class="action-btn" target="_blank"><i class="fas fa-eye"></i> View</a>
+                                <button class="action-btn"><i class="fas fa-download"></i> PDF</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="invoice-id">INV-2820</span></td>
+                        <td>
+                            <div class="client-info">Marriott Hotel</div>
+                            <div class="client-subtext">Luminous Ceiling</div>
+                        </td>
+                        <td><span class="amount">$38,900</span></td>
+                        <td><span class="badge badge-unpaid">Unpaid</span></td>
+                        <td><span class="due-date">Jul 20, 2024</span></td>
+                        <td><span style="color: #ff6b6b;">16 days overdue</span></td>
+                        <td>
+                            <div class="actions">
+                                <a href="invoice-pdf-demo.html" class="action-btn" target="_blank"><i class="fas fa-eye"></i> View</a>
+                                <button class="action-btn"><i class="fas fa-download"></i> PDF</button>
+                                <button class="action-btn"><i class="fas fa-envelope"></i> Remind</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="invoice-id">INV-2815</span></td>
+                        <td>
+                            <div class="client-info">Moffitt Cancer Center</div>
+                            <div class="client-subtext">Warranty Service</div>
+                        </td>
+                        <td><span class="amount">$12,000</span></td>
+                        <td><span class="badge badge-paid">Paid</span></td>
+                        <td><span class="due-date">Jun 15, 2024</span></td>
+                        <td><span style="color: #51cf66;">Paid</span></td>
+                        <td>
+                            <div class="actions">
+                                <a href="invoice-pdf-demo.html" class="action-btn" target="_blank"><i class="fas fa-eye"></i> View</a>
+                                <button class="action-btn"><i class="fas fa-download"></i> PDF</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="invoice-id">INV-2810</span></td>
+                        <td>
+                            <div class="client-info">Saudi Arabia Hospital Group</div>
+                            <div class="client-subtext">Multiple Projects</div>
+                        </td>
+                        <td><span class="amount">$125,500</span></td>
+                        <td><span class="badge badge-paid">Paid</span></td>
+                        <td><span class="due-date">Jun 10, 2024</span></td>
+                        <td><span style="color: #51cf66;">Paid</span></td>
+                        <td>
+                            <div class="actions">
+                                <a href="invoice-pdf-demo.html" class="action-btn" target="_blank"><i class="fas fa-eye"></i> View</a>
+                                <button class="action-btn"><i class="fas fa-download"></i> PDF</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="invoice-id">INV-2805</span></td>
+                        <td>
+                            <div class="client-info">Bogota Medical Center</div>
+                            <div class="client-subtext">LED Installation</div>
+                        </td>
+                        <td><span class="amount">$67,300</span></td>
+                        <td><span class="badge badge-unpaid">Unpaid</span></td>
+                        <td><span class="due-date">Jul 15, 2024</span></td>
+                        <td><span style="color: #ff6b6b;">21 days overdue</span></td>
+                        <td>
+                            <div class="actions">
+                                <a href="invoice-pdf-demo.html" class="action-btn" target="_blank"><i class="fas fa-eye"></i> View</a>
+                                <button class="action-btn"><i class="fas fa-download"></i> PDF</button>
+                                <button class="action-btn"><i class="fas fa-envelope"></i> Remind</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function filterInvoices(status) {
+            console.log('Filtering by:', status);
+        }
+    </script>
+</body>
+</html>
