@@ -479,10 +479,42 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
   });
 
   /* Contact form */
-  document.getElementById('contactForm').addEventListener('submit',function(e){
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    this.style.display='none';
-    document.getElementById('formSuccess').classList.add('show');
+
+    // Collect form data
+    const formData = new FormData(this);
+
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    // POST to send_mail.php via AJAX
+    fetch('send_mail.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Hide form and show success message
+        this.style.display = 'none';
+        document.getElementById('formSuccess').classList.add('show');
+      } else {
+        // Show error message
+        alert('Error: ' + (data.message || 'Failed to send message.'));
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred while sending your message. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    });
   });
 })();
 </script>
