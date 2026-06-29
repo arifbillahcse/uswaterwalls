@@ -7,23 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once __DIR__ . '/phpmailer/Exception.php';
-require_once __DIR__ . '/phpmailer/PHPMailer.php';
-require_once __DIR__ . '/phpmailer/SMTP.php';
+// Form fields from contact.html
+$fname   = trim($_POST['fname']   ?? '');
+$lname   = trim($_POST['lname']   ?? '');
+$email   = trim($_POST['email']   ?? '');
+$phone   = trim($_POST['phone']   ?? '');
+$project = trim($_POST['project'] ?? '');
+$message = trim($_POST['message'] ?? '');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Collect & sanitize inputs
-$firstName = htmlspecialchars(trim($_POST['fname']   ?? ''));
-$lastName  = htmlspecialchars(trim($_POST['lname']   ?? ''));
-$email     = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-$phone     = htmlspecialchars(trim($_POST['phone']   ?? 'Not provided'));
-$project   = htmlspecialchars(trim($_POST['project'] ?? 'Not specified'));
-$message   = htmlspecialchars(trim($_POST['message'] ?? ''));
-
-// Validate required fields
-if (!$firstName || !$lastName || !$email || !$message) {
+// Required fields
+if (!$fname || !$lname || !$email || !$message) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
     exit;
@@ -35,37 +28,29 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-try {
-    $mail = new PHPMailer(true);
+$to      = 'info@usvideowalls.com';
+$subject = 'New Contact Form Submission - US Video Walls';
 
-    $mail->isMail(); // Use PHP mail() — no SMTP needed
-    $mail->setFrom('info@usvideowalls.com', 'US Video Walls');
-    $mail->addAddress('info@usvideowalls.com');
-    $mail->addReplyTo($email, "$firstName $lastName");
+$body = "You have a new contact form submission from usvideowalls.com\r\n";
+$body .= "=============================================================\r\n\r\n";
+$body .= "First Name   : " . htmlspecialchars($fname)   . "\r\n";
+$body .= "Last Name    : " . htmlspecialchars($lname)   . "\r\n";
+$body .= "Email        : " . htmlspecialchars($email)   . "\r\n";
+$body .= "Phone        : " . ($phone   ? htmlspecialchars($phone)   : 'Not provided')   . "\r\n";
+$body .= "Project Type : " . ($project ? htmlspecialchars($project) : 'Not specified') . "\r\n\r\n";
+$body .= "Message:\r\n";
+$body .= htmlspecialchars($message) . "\r\n\r\n";
+$body .= "=============================================================\r\n";
+$body .= "Sent from usvideowalls.com\r\n";
 
-    $mail->Subject = "New Contact Form: $firstName $lastName";
-    $mail->isHTML(false);
-    $mail->Body =
-"New Contact Form Submission — US Video Walls
-================================================
+$headers = "From: info@usvideowalls.com\r\n";
+$headers .= "Reply-To: " . htmlspecialchars($email) . "\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion();
 
-Name:         $firstName $lastName
-Email:        $email
-Phone:        $phone
-Project Type: $project
-
-Message:
-$message
-
-------------------------------------------------
-Sent from usvideowalls.com contact form";
-
-    $mail->send();
-
-    echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully! We will respond within 24 hours.']);
-
-} catch (Exception $e) {
+if (mail($to, $subject, $body, $headers)) {
+    echo json_encode(['success' => true, 'message' => 'Your message has been sent! We will get back to you within 24 hours.']);
+} else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@usvideowalls.com']);
+    echo json_encode(['success' => false, 'message' => 'Failed to send message. Please email us directly at info@usvideowalls.com']);
 }
 ?>
