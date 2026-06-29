@@ -47,15 +47,20 @@ $message
 Sent from usvideowalls.com contact form
 ";
 
-$headers  = "From: info@usvideowalls.com\r\n";
+$headers  = "MIME-Version: 1.0\r\n";
+$headers .= "Content-type: text/plain; charset=UTF-8\r\n";
+$headers .= "From: info@usvideowalls.com\r\n";
 $headers .= "Reply-To: $email\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion();
+$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
-if (mail($to, $subject, $mailMessage, $headers)) {
+// Try to send email
+$mail_sent = mail($to, $subject, $mailMessage, $headers);
+
+if ($mail_sent) {
+    http_response_code(200);
     echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully! We will respond within 24 hours.']);
 } else {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@usvideowalls.com']);
 }
 ?>
-
