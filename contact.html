@@ -60,9 +60,14 @@
       <div class="cinfo-card"><div class="cinfo-ico">📍</div><div><h4>Visit Our Studio</h4><p>2541 N. Dale Mabry Hwy. Suite 169<br/>Tampa, Florida 33607 USA</p></div></div>
       <div class="cinfo-card"><div class="cinfo-ico">🌐</div><div><h4>Service Area</h4><p>All 50 United States<br/>Nationwide design &amp; install</p></div></div>
     </div>
-    <form class="contact-form rv d1" data-quote>
+    <form class="contact-form rv d1" action="send_mail.php" method="POST">
       <div class="sec-tag">Free Quote</div>
       <h2 class="sec-h" style="font-size:1.8rem;margin-bottom:1.5rem">Request Your Consultation</h2>
+      <?php if(isset($_GET['success'])): ?>
+        <div class="form-note ok" style="font-size:1rem;margin-bottom:1rem;">✓ Your message has been sent successfully! We'll get back to you within 48 hours.</div>
+      <?php elseif(isset($_GET['error'])): ?>
+        <div class="form-note error" style="font-size:1rem;margin-bottom:1rem;">✗ Could not send message. Please call us at (407) 792-8916</div>
+      <?php endif; ?>
       <div class="form-row">
         <div class="field"><label>First Name</label><input type="text" name="firstName" required placeholder="Jane"/></div>
         <div class="field"><label>Last Name</label><input type="text" name="lastName" required placeholder="Doe"/></div>

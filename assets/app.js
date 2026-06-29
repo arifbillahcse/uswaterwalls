@@ -197,31 +197,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 })();
 
-/* ── contact form submission via AJAX ── */
-document.querySelectorAll('form[data-quote]').forEach(f=>{
-  f.addEventListener('submit',async e=>{
-    e.preventDefault();
-    const note=f.querySelector('.form-note');
-    const btn=f.querySelector('button[type="submit"]');
-
-    try{
-      const formData=new FormData(f);
-      const phpUrl=window.location.origin+'/send_mail.php';
-      const res=await fetch(phpUrl,{method:'POST',body:formData});
-      const data=await res.json();
-
-      if(data.success){
-        if(note){note.textContent='✓ '+data.message;note.classList.add('ok')}
-        f.reset();
-      }else{
-        if(note){note.textContent='✗ '+data.message;note.classList.add('error')}
-      }
-    }catch(err){
-      if(note){note.textContent='✗ Network error. Please try again or call us.';note.classList.add('error')}
-      console.error('Form submission error:',err);
-    }
-  });
-});
+/* form submits directly to send_mail.php via HTML action attribute */
 
 /* ── FAQ accordion ── */
 document.querySelectorAll('.faq-q').forEach(q=>{
