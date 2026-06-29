@@ -1,11 +1,4 @@
 <?php
-header('Content-Type: application/json');
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed.']);
-    exit;
-}
 
 // Collect & sanitize inputs
 $firstName = htmlspecialchars(trim($_POST['fname']    ?? ''));
@@ -17,14 +10,12 @@ $comment   = htmlspecialchars(trim($_POST['message']  ?? ''));
 
 // Validate required fields
 if (!$firstName || !$lastName || !$email || !$comment) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
+    header('Location: contact.html?error=missing');
     exit;
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Please enter a valid email address.']);
+    header('Location: contact.html?error=email');
     exit;
 }
 
@@ -52,9 +43,9 @@ $headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
 if (mail($to, $subject, $message, $headers)) {
-    echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully!']);
+    header('Location: contact.html?sent=1');
 } else {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@usvideowalls.com']);
+    header('Location: contact.html?error=send');
 }
+exit;
 ?>

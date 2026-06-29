@@ -307,7 +307,7 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
         <h3>Send a Message</h3>
         <p class="form-sub">Tell us about your project — space dimensions, intended use, budget, and timeline.</p>
 
-        <form id="contactForm">
+        <form id="contactForm" action="send_mail.php" method="POST">
           <div class="form-row">
             <div class="field">
               <label for="fname">First Name</label>
@@ -478,44 +478,22 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
     });
   });
 
-  /* Contact form */
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Collect form data
-    const formData = new FormData(this);
-
-    // Show loading state
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-
-    // POST to send_mail.php via AJAX
-    fetch('send_mail.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Hide form and show success message
-        this.style.display = 'none';
-        document.getElementById('formSuccess').classList.add('show');
-      } else {
-        // Show error message
-        alert('Error: ' + (data.message || 'Failed to send message.'));
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('An error occurred while sending your message. Please try again.');
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-    });
-  });
+  /* Contact form — check URL params after redirect from send_mail.php */
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('sent') === '1') {
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+    window.history.replaceState({}, document.title, 'contact.html');
+  }
+  if (urlParams.get('error') === 'missing') {
+    alert('Please fill in all required fields.');
+  }
+  if (urlParams.get('error') === 'email') {
+    alert('Please enter a valid email address.');
+  }
+  if (urlParams.get('error') === 'send') {
+    alert('Message could not be sent. Please email us directly at info@usvideowalls.com');
+  }
 })();
 </script>
 </body>
