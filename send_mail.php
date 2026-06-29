@@ -28,32 +28,36 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$to      = 'ron@medicalmurals.com';
-$subject = "New Contact Form Submission: $firstName $lastName — US Water Walls";
+$to      = 'info@uswaterwalls.com';
+$subject = "New Contact Form Submission: $firstName $lastName";
 
-$mailBody = "
-New Contact Form Submission — US Water Walls
-=============================================
+$mailBody = "New Contact Form Submission — US Water Walls\n";
+$mailBody .= "=============================================\n\n";
+$mailBody .= "Name:             $firstName $lastName\n";
+$mailBody .= "Email:            $email\n";
+$mailBody .= "Phone:            $phone\n";
+$mailBody .= "Product Interest: $product\n";
+$mailBody .= "\nMessage:\n";
+$mailBody .= "$message\n";
+$mailBody .= "\n---------------------------------------------\n";
+$mailBody .= "Sent from uswaterwalls.com contact form\n";
 
-Name:             $firstName $lastName
-Email:            $email
-Phone:            $phone
-Product Interest: $product
-
-Message:
-$message
-
----------------------------------------------
-Sent from uswaterwalls.com contact form
-";
-
+// Proper email headers for Hostinger
 $headers  = "From: info@uswaterwalls.com\r\n";
 $headers .= "Reply-To: $email\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion();
+$headers .= "Return-Path: info@uswaterwalls.com\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$headers .= "X-Priority: 3\r\n";
 
-if (mail($to, $subject, $mailBody, $headers)) {
+// Attempt to send email
+$sent = @mail($to, $subject, $mailBody, $headers);
+
+if ($sent) {
     echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully! We\'ll get back to you within 48 hours.']);
 } else {
+    // Log error for debugging
+    error_log("Mail failed for: $email, To: $to, Subject: $subject");
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please call us at (407) 792-8916']);
 }
