@@ -7,16 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Form fields from contact.html
-$fname   = trim($_POST['fname']   ?? '');
-$lname   = trim($_POST['lname']   ?? '');
-$email   = trim($_POST['email']   ?? '');
-$phone   = trim($_POST['phone']   ?? '');
-$project = trim($_POST['project'] ?? '');
-$message = trim($_POST['message'] ?? '');
+// Collect & sanitize inputs
+$firstName = htmlspecialchars(trim($_POST['fname']    ?? ''));
+$lastName  = htmlspecialchars(trim($_POST['lname']    ?? ''));
+$email     = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+$phone     = htmlspecialchars(trim($_POST['phone']    ?? 'Not provided'));
+$project   = htmlspecialchars(trim($_POST['project']  ?? 'Not specified'));
+$comment   = htmlspecialchars(trim($_POST['message']  ?? ''));
 
-// Required fields
-if (!$fname || !$lname || !$email || !$message) {
+// Validate required fields
+if (!$firstName || !$lastName || !$email || !$comment) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
     exit;
@@ -29,28 +29,32 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 $to      = 'info@usvideowalls.com';
-$subject = 'New Contact Form Submission - US Video Walls';
+$subject = "New Contact Form: $firstName $lastName";
 
-$body = "You have a new contact form submission from usvideowalls.com\r\n";
-$body .= "=============================================================\r\n\r\n";
-$body .= "First Name   : " . htmlspecialchars($fname)   . "\r\n";
-$body .= "Last Name    : " . htmlspecialchars($lname)   . "\r\n";
-$body .= "Email        : " . htmlspecialchars($email)   . "\r\n";
-$body .= "Phone        : " . ($phone   ? htmlspecialchars($phone)   : 'Not provided')   . "\r\n";
-$body .= "Project Type : " . ($project ? htmlspecialchars($project) : 'Not specified') . "\r\n\r\n";
-$body .= "Message:\r\n";
-$body .= htmlspecialchars($message) . "\r\n\r\n";
-$body .= "=============================================================\r\n";
-$body .= "Sent from usvideowalls.com\r\n";
+$message = "
+New Contact Form Submission — US Video Walls
+================================================
 
-$headers = "From: info@usvideowalls.com\r\n";
-$headers .= "Reply-To: " . htmlspecialchars($email) . "\r\n";
+Name:         $firstName $lastName
+Email:        $email
+Phone:        $phone
+Project Type: $project
+
+Message:
+$comment
+
+------------------------------------------------
+Sent from usvideowalls.com contact form
+";
+
+$headers  = "From: info@usvideowalls.com\r\n";
+$headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
-if (mail($to, $subject, $body, $headers)) {
-    echo json_encode(['success' => true, 'message' => 'Your message has been sent! We will get back to you within 24 hours.']);
+if (mail($to, $subject, $message, $headers)) {
+    echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully!']);
 } else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Failed to send message. Please email us directly at info@usvideowalls.com']);
+    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@usvideowalls.com']);
 }
 ?>
