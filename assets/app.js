@@ -206,7 +206,7 @@ document.querySelectorAll('form[data-quote]').forEach(f=>{
 
     try{
       const formData=new FormData(f);
-      const res=await fetch('send_mail.php',{method:'POST',body:formData});
+      const res=await fetch('/send_mail.php',{method:'POST',body:formData});
       const data=await res.json();
 
       if(data.success){
