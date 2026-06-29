@@ -724,6 +724,7 @@ footer{background:#030911;padding:4rem 5% 2rem}
 .field textarea{resize:vertical;min-height:120px}
 .form-note{margin-top:.8rem;font-size:.85rem;color:var(--gray)}
 .form-note.ok{color:var(--teal2);font-weight:600}
+.form-note.error{color:#ff6b6b;font-weight:600}
 
 /* ── MAP ── */
 .map-wrap{border-radius:22px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.12);max-width:var(--max);margin:0 auto;border:1px solid rgba(0,0,0,.06)}

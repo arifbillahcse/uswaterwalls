@@ -64,15 +64,15 @@
       <div class="sec-tag">Free Quote</div>
       <h2 class="sec-h" style="font-size:1.8rem;margin-bottom:1.5rem">Request Your Consultation</h2>
       <div class="form-row">
-        <div class="field"><label>First Name</label><input type="text" required placeholder="Jane"/></div>
-        <div class="field"><label>Last Name</label><input type="text" required placeholder="Doe"/></div>
+        <div class="field"><label>First Name</label><input type="text" name="firstName" required placeholder="Jane"/></div>
+        <div class="field"><label>Last Name</label><input type="text" name="lastName" required placeholder="Doe"/></div>
       </div>
       <div class="form-row">
-        <div class="field"><label>Email</label><input type="email" required placeholder="jane@email.com"/></div>
-        <div class="field"><label>Phone</label><input type="tel" placeholder="(555) 000-0000"/></div>
+        <div class="field"><label>Email</label><input type="email" name="email" required placeholder="jane@email.com"/></div>
+        <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(555) 000-0000"/></div>
       </div>
       <div class="field"><label>Interested In</label>
-        <select>
+        <select name="product">
           <option>Bubble Wall</option>
           <option>Floor Fountain</option>
           <option>Wall Waterfall</option>
@@ -81,7 +81,7 @@
           <option>Not sure yet — need advice</option>
         </select>
       </div>
-      <div class="field"><label>Tell Us About Your Project</label><textarea placeholder="Describe your space, size, timeline and any ideas you have..."></textarea></div>
+      <div class="field"><label>Tell Us About Your Project</label><textarea name="message" placeholder="Describe your space, size, timeline and any ideas you have..."></textarea></div>
       <button type="submit" class="btn-glow" style="width:100%;justify-content:center">Send My Request</button>
       <div class="form-note">No spam. Custom concepts delivered within 48 hours.</div>
     </form>

@@ -197,13 +197,28 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 })();
 
-/* ── simple form feedback (contact / quote forms) ── */
+/* ── contact form submission via AJAX ── */
 document.querySelectorAll('form[data-quote]').forEach(f=>{
-  f.addEventListener('submit',e=>{
+  f.addEventListener('submit',async e=>{
     e.preventDefault();
     const note=f.querySelector('.form-note');
-    if(note){note.textContent='✓ Thank you! Our design team will reach out within 48 hours.';note.classList.add('ok')}
-    f.reset();
+    const btn=f.querySelector('button[type="submit"]');
+
+    try{
+      const formData=new FormData(f);
+      const res=await fetch('send_mail.php',{method:'POST',body:formData});
+      const data=await res.json();
+
+      if(data.success){
+        if(note){note.textContent='✓ '+data.message;note.classList.add('ok')}
+        f.reset();
+      }else{
+        if(note){note.textContent='✗ '+data.message;note.classList.add('error')}
+      }
+    }catch(err){
+      if(note){note.textContent='✗ Network error. Please try again or call us.';note.classList.add('error')}
+      console.error('Form submission error:',err);
+    }
   });
 });
 
