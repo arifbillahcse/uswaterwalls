@@ -50,14 +50,19 @@ $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Priority: 3\r\n";
 
+// Debug: Log all received data
+error_log("FORM SUBMISSION RECEIVED - Name: $firstName $lastName, Email: $email, Product: $product");
+
 // Attempt to send email
-$sent = @mail($to, $subject, $mailBody, $headers);
+$sent = mail($to, $subject, $mailBody, $headers);
+
+error_log("MAIL RESULT: " . ($sent ? "SUCCESS" : "FAILED"));
 
 if ($sent) {
     echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully! We\'ll get back to you within 48 hours.']);
 } else {
     // Log error for debugging
-    error_log("Mail failed for: $email, To: $to, Subject: $subject");
+    error_log("Mail delivery failed for: $email, To: $to");
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please call us at (407) 792-8916']);
 }
