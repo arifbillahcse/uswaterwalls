@@ -1,0 +1,11 @@
+{
+    "name": "uswaterwalls/contact-mailer",
+    "description": "Contact form mailer for US Water Walls website",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}
