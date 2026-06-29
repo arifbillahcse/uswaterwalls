@@ -7,14 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$firstName = trim($_POST['firstName'] ?? '');
-$lastName  = trim($_POST['lastName']  ?? '');
-$email     = trim($_POST['email']     ?? '');
-$phone     = trim($_POST['phone']     ?? 'Not provided');
-$product   = trim($_POST['product']   ?? 'Not specified');
-$message   = trim($_POST['message']   ?? '');
+// Collect & sanitize inputs
+$firstName = htmlspecialchars(trim($_POST['firstName'] ?? ''));
+$lastName  = htmlspecialchars(trim($_POST['lastName']  ?? ''));
+$email     = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+$phone     = htmlspecialchars(trim($_POST['phone']   ?? 'Not provided'));
+$product   = htmlspecialchars(trim($_POST['product'] ?? 'Not specified'));
+$comment   = htmlspecialchars(trim($_POST['message'] ?? ''));
 
-if (!$firstName || !$lastName || !$email || !$message) {
+// Validate required fields
+if (!$firstName || !$lastName || !$email || !$comment) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
     exit;
@@ -27,23 +29,32 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 $to      = 'info@uswaterwalls.com';
-$subject = "New Quote Request: $firstName $lastName";
-$headers = "From: info@uswaterwalls.com\r\nReply-To: $email\r\n";
+$subject = "New Contact Form: $firstName $lastName";
 
-$body = "New Quote Request — US Water Walls\n";
-$body .= "===================================\n\n";
-$body .= "Name:     $firstName $lastName\n";
-$body .= "Email:    $email\n";
-$body .= "Phone:    $phone\n";
-$body .= "Product:  $product\n\n";
-$body .= "Message:\n$message\n\n";
-$body .= "-----------------------------------\n";
-$body .= "Sent from uswaterwalls.com";
+$message = "
+New Contact Form Submission — US Water Walls
+================================================
 
-if (mail($to, $subject, $body, $headers)) {
-    echo json_encode(['success' => true, 'message' => 'Thank you! We will get back to you within 48 hours.']);
+Name:             $firstName $lastName
+Email:            $email
+Phone:            $phone
+Product Interest: $product
+
+Message:
+$comment
+
+------------------------------------------------
+Sent from uswaterwalls.com contact form
+";
+
+$headers  = "From: info@uswaterwalls.com\r\n";
+$headers .= "Reply-To: $email\r\n";
+$headers .= "X-Mailer: PHP/" . phpversion();
+
+if (mail($to, $subject, $message, $headers)) {
+    echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully!']);
 } else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Failed to send. Please call us at (407) 792-8916']);
+    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please call us at (407) 792-8916']);
 }
 ?>
