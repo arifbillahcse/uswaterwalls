@@ -7,13 +7,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Load PHPMailer (bundled — no composer needed)
+require_once __DIR__ . '/phpmailer/Exception.php';
+require_once __DIR__ . '/phpmailer/PHPMailer.php';
+require_once __DIR__ . '/phpmailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 // Collect & sanitize inputs
-$firstName = htmlspecialchars(trim($_POST['fname'] ?? ''));
-$lastName  = htmlspecialchars(trim($_POST['lname'] ?? ''));
+$firstName = htmlspecialchars(trim($_POST['fname']    ?? ''));
+$lastName  = htmlspecialchars(trim($_POST['lname']    ?? ''));
 $email     = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-$phone     = htmlspecialchars(trim($_POST['phone'] ?? 'Not provided'));
-$project   = htmlspecialchars(trim($_POST['project'] ?? 'Not specified'));
-$message   = htmlspecialchars(trim($_POST['message'] ?? ''));
+$phone     = htmlspecialchars(trim($_POST['phone']    ?? 'Not provided'));
+$project   = htmlspecialchars(trim($_POST['project']  ?? 'Not specified'));
+$message   = htmlspecialchars(trim($_POST['message']  ?? ''));
 
 // Validate required fields
 if (!$firstName || !$lastName || !$email || !$message) {
@@ -28,10 +37,27 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$to      = 'info@usvideowalls.com';
-$subject = "New Contact Form: $firstName $lastName";
+try {
+    $mail = new PHPMailer(true);
 
-$mailMessage = "
+    // Hostinger SMTP settings
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.hostinger.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'info@usvideowalls.com';
+    $mail->Password   = 'YOUR_PASSWORD_HERE'; // Replace with your Hostinger email password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port       = 465;
+
+    // Sender & recipient
+    $mail->setFrom('info@usvideowalls.com', 'US Video Walls');
+    $mail->addAddress('info@usvideowalls.com', 'US Video Walls');
+    $mail->addReplyTo($email, "$firstName $lastName");
+
+    // Email content
+    $mail->isHTML(false);
+    $mail->Subject = "New Contact Form: $firstName $lastName";
+    $mail->Body    = "
 New Contact Form Submission — US Video Walls
 ================================================
 
@@ -47,20 +73,18 @@ $message
 Sent from usvideowalls.com contact form
 ";
 
-$headers  = "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/plain; charset=UTF-8\r\n";
-$headers .= "From: info@usvideowalls.com\r\n";
-$headers .= "Reply-To: $email\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+    $mail->send();
 
-// Try to send email
-$mail_sent = mail($to, $subject, $mailMessage, $headers);
+    echo json_encode([
+        'success' => true,
+        'message' => 'Your message has been sent successfully! We will respond within 24 hours.'
+    ]);
 
-if ($mail_sent) {
-    http_response_code(200);
-    echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully! We will respond within 24 hours.']);
-} else {
+} catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@usvideowalls.com']);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Message could not be sent. Please email us directly at info@usvideowalls.com'
+    ]);
 }
 ?>
