@@ -307,7 +307,7 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
         <h3>Send a Message</h3>
         <p class="form-sub">Tell us about your project — space dimensions, intended use, budget, and timeline.</p>
 
-        <form id="contactForm" action="send_mail.php" method="POST">
+        <form id="contactForm">
           <div class="form-row">
             <div class="field">
               <label for="fname">First Name</label>
@@ -478,22 +478,35 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
     });
   });
 
-  /* Contact form — check URL params after redirect from send_mail.php */
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('sent') === '1') {
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-    window.history.replaceState({}, document.title, 'contact.html');
-  }
-  if (urlParams.get('error') === 'missing') {
-    alert('Please fill in all required fields.');
-  }
-  if (urlParams.get('error') === 'email') {
-    alert('Please enter a valid email address.');
-  }
-  if (urlParams.get('error') === 'send') {
-    alert('Message could not be sent. Please email us directly at info@usvideowalls.com');
-  }
+  /* Contact form */
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalHTML = submitBtn.innerHTML;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    fetch('send_mail.php', { method: 'POST', body: formData })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById('contactForm').style.display = 'none';
+          document.getElementById('formSuccess').classList.add('show');
+        } else {
+          alert(data.message || 'Failed to send. Please try again.');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalHTML;
+        }
+      })
+      .catch(() => {
+        alert('An error occurred. Please email us at info@uswaterwalls.com');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+      });
+  });
 })();
 </script>
 </body>
