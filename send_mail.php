@@ -1,4 +1,11 @@
 <?php
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Method not allowed.']);
+    exit;
+}
 
 // Collect & sanitize inputs
 $firstName = htmlspecialchars(trim($_POST['firstName'] ?? ''));
@@ -10,12 +17,14 @@ $comment   = htmlspecialchars(trim($_POST['message'] ?? ''));
 
 // Validate required fields
 if (!$firstName || !$lastName || !$email || !$comment) {
-    header('Location: contact.html?error=1');
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Please fill in all required fields.']);
     exit;
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: contact.html?error=1');
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Please enter a valid email address.']);
     exit;
 }
 
@@ -23,7 +32,7 @@ $to      = 'info@uswaterwalls.com';
 $subject = "New Contact Form: $firstName $lastName";
 
 $message = "
-New Contact Form Submission — US Water Walls
+New Contact Form Submission — USWaterWalls.com
 ================================================
 
 Name:             $firstName $lastName
@@ -38,14 +47,14 @@ $comment
 Sent from uswaterwalls.com contact form
 ";
 
-$headers  = "From: info@uswaterwalls.com\r\n";
+$headers  = "From: no-reply@uswaterwalls.com\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
 if (mail($to, $subject, $message, $headers)) {
-    header('Location: contact.html?success=1');
+    echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully!']);
 } else {
-    header('Location: contact.html?error=1');
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@uswaterwalls.com']);
 }
-exit;
 ?>
