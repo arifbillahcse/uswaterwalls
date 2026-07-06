@@ -47,11 +47,16 @@ $comment
 Sent from uswaterwalls.com contact form
 ";
 
-$headers  = "From: info@uswaterwalls.com\r\n";
+$headers  = "From: US Water Walls <info@uswaterwalls.com>\r\n";
 $headers .= "Reply-To: $email\r\n";
+$headers .= "Return-Path: info@uswaterwalls.com\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
-if (mail($to, $subject, $message, $headers)) {
+$envelopeSender = "-finfo@uswaterwalls.com";
+
+if (mail($to, $subject, $message, $headers, $envelopeSender)) {
     echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully!']);
 } else {
     http_response_code(500);
