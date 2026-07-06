@@ -63,17 +63,16 @@
     <form class="contact-form rv d1" id="contactForm">
       <div class="sec-tag">Free Quote</div>
       <h2 class="sec-h" style="font-size:1.8rem;margin-bottom:1.5rem">Request Your Consultation</h2>
-      <div id="form-msg" style="display:none;font-size:.95rem;margin-bottom:1rem;font-weight:600;padding:.8rem 1rem;border-radius:6px"></div>
       <div class="form-row">
-        <div class="field"><label>First Name</label><input type="text" name="firstName" required placeholder="Jane"/></div>
-        <div class="field"><label>Last Name</label><input type="text" name="lastName" required placeholder="Doe"/></div>
+        <div class="field"><label>First Name</label><input type="text" name="fname" required placeholder="Jane"/></div>
+        <div class="field"><label>Last Name</label><input type="text" name="lname" required placeholder="Doe"/></div>
       </div>
       <div class="form-row">
         <div class="field"><label>Email</label><input type="email" name="email" required placeholder="jane@email.com"/></div>
         <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(555) 000-0000"/></div>
       </div>
       <div class="field"><label>Interested In</label>
-        <select name="product">
+        <select name="project">
           <option>Bubble Wall</option>
           <option>Floor Fountain</option>
           <option>Wall Waterfall</option>
@@ -82,10 +81,14 @@
           <option>Not sure yet — need advice</option>
         </select>
       </div>
-      <div class="field"><label>Tell Us About Your Project</label><textarea name="message" placeholder="Describe your space, size, timeline and any ideas you have..."></textarea></div>
+      <div class="field"><label>Tell Us About Your Project</label><textarea name="message" required placeholder="Describe your space, size, timeline and any ideas you have..."></textarea></div>
       <button type="submit" class="btn-glow" style="width:100%;justify-content:center">Send My Request</button>
       <div class="form-note">No spam. Custom concepts delivered within 48 hours.</div>
     </form>
+    <div id="formSuccess" style="display:none;text-align:center;padding:2rem">
+      <h3 style="color:var(--teal);margin-bottom:1rem">Message Sent!</h3>
+      <p>Thank you! We'll be in touch within 48 hours with your custom concept.</p>
+    </div>
   </div>
 </section>
 <section class="bg-white" style="padding-top:0">
@@ -183,48 +186,33 @@
 </footer>
 <script src="assets/app.js"></script>
 <script>
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const formData = new FormData(this);
-      const submitBtn = this.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      const msg = document.getElementById('form-msg');
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
-
-      fetch('send_mail.php', { method: 'POST', body: formData })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            msg.style.display = 'block';
-            msg.style.color = '#3ecfbe';
-            msg.textContent = '✓ ' + data.message;
-            contactForm.reset();
-          } else {
-            msg.style.display = 'block';
-            msg.style.color = '#ff6b6b';
-            msg.textContent = '✗ ' + data.message;
-          }
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        })
-        .catch(err => {
-          console.error('Error:', err);
-          msg.style.display = 'block';
-          msg.style.color = '#ff6b6b';
-          msg.textContent = '✗ An error occurred. Please call us at (407) 792-8916';
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        });
-
-      return false;
-    });
-  }
+  var form = document.getElementById('contactForm');
+  var successDiv = document.getElementById('formSuccess');
+  form.onsubmit = function(e) {
+    if (e) e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    var data = new FormData(form);
+    fetch('send_mail.php', { method: 'POST', body: data })
+      .then(function(r) { return r.json(); })
+      .then(function(result) {
+        if (result.success) {
+          form.style.display = 'none';
+          successDiv.style.display = 'block';
+        } else {
+          alert(result.message);
+          btn.disabled = false;
+          btn.textContent = 'Send My Request';
+        }
+      })
+      .catch(function() {
+        alert('Error sending message. Please call us at (407) 792-8916');
+        btn.disabled = false;
+        btn.textContent = 'Send My Request';
+      });
+    return false;
+  };
 </script>
 </body>
 </html>
