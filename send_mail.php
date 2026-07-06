@@ -29,30 +29,26 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $to      = 'info@uswaterwalls.com';
 $subject = "New Contact Form: $firstName $lastName";
 
-$message = "
-New Contact Form Submission — USWaterWalls.com
-================================================
-
-Name:             $firstName $lastName
-Email:            $email
-Phone:            $phone
-Product Interest: $product
-
-Message:
-$comment
-
-------------------------------------------------
-Sent from uswaterwalls.com contact form
-";
+$body = "New Contact Form Submission — USWaterWalls.com\n";
+$body .= "================================================\n\n";
+$body .= "Name:             $firstName $lastName\n";
+$body .= "Email:            $email\n";
+$body .= "Phone:            $phone\n";
+$body .= "Product Interest: $product\n\n";
+$body .= "Message:\n$comment\n\n";
+$body .= "------------------------------------------------\n";
+$body .= "Sent from uswaterwalls.com contact form\n";
 
 $headers  = "From: info@uswaterwalls.com\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
-if (mail($to, $subject, $message, $headers)) {
+$sent = mail($to, $subject, $body, $headers);
+
+if ($sent) {
     echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully!']);
 } else {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@uswaterwalls.com']);
+    $err = error_get_last();
+    echo json_encode(['success' => false, 'message' => 'Mail failed. Error: ' . ($err['message'] ?? 'unknown')]);
 }
 ?>
