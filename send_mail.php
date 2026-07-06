@@ -28,7 +28,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-$to      = 'info@uswaterwalls.com';
+$to      = 'info@usvideowalls.com';
 $subject = "New Contact Form: $firstName $lastName";
 
 $message = "
@@ -47,7 +47,7 @@ $comment
 Sent from usvideowalls.com contact form
 ";
 
-$headers  = "From: no-reply@uswaterwalls.com\r\n";
+$headers  = "From: no-reply@usvideowalls.com\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
@@ -55,6 +55,6 @@ if (mail($to, $subject, $message, $headers)) {
     echo json_encode(['success' => true, 'message' => 'Your message has been sent successfully!']);
 } else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@uswaterwalls.com']);
+    echo json_encode(['success' => false, 'message' => 'Message could not be sent. Please email us at info@usvideowalls.com']);
 }
 ?>
