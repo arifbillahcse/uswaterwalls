@@ -496,7 +496,7 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
         .then(res => res.json())
         .then(data => {
           if (data.success) {
-            document.getElementById('contactForm').style.display = 'none';
+            contactForm.style.display = 'none';
             document.getElementById('formSuccess').classList.add('show');
           } else {
             alert(data.message || 'Failed to send. Please try again.');
@@ -510,6 +510,8 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalHTML;
         });
+
+      return false;
     });
   }
 })();
