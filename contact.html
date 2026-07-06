@@ -479,34 +479,39 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
   });
 
   /* Contact form */
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const formData = new FormData(this);
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalHTML = submitBtn.innerHTML;
+      const formData = new FormData(this);
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalHTML = submitBtn.innerHTML;
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
 
-    fetch('send_mail.php', { method: 'POST', body: formData })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          document.getElementById('contactForm').style.display = 'none';
-          document.getElementById('formSuccess').classList.add('show');
-        } else {
-          alert(data.message || 'Failed to send. Please try again.');
+      fetch('send_mail.php', { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+          } else {
+            alert(data.message || 'Failed to send. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalHTML;
+          }
+        })
+        .catch(err => {
+          console.error('Error:', err);
+          alert('An error occurred. Please email us at info@usvideowalls.com');
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalHTML;
-        }
-      })
-      .catch(() => {
-        alert('An error occurred. Please email us at info@uswaterwalls.com');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalHTML;
-      });
-  });
+        });
+    });
+  }
 })();
 </script>
 </body>
