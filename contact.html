@@ -63,11 +63,7 @@
     <form class="contact-form rv d1" action="send_mail.php" method="POST">
       <div class="sec-tag">Free Quote</div>
       <h2 class="sec-h" style="font-size:1.8rem;margin-bottom:1.5rem">Request Your Consultation</h2>
-      <?php if(isset($_GET['success'])): ?>
-        <div class="form-note ok" style="font-size:1rem;margin-bottom:1rem;">✓ Your message has been sent successfully! We'll get back to you within 48 hours.</div>
-      <?php elseif(isset($_GET['error'])): ?>
-        <div class="form-note error" style="font-size:1rem;margin-bottom:1rem;">✗ Could not send message. Please call us at (407) 792-8916</div>
-      <?php endif; ?>
+      <div id="form-msg" style="display:none;font-size:1rem;margin-bottom:1rem;font-weight:600"></div>
       <div class="form-row">
         <div class="field"><label>First Name</label><input type="text" name="firstName" required placeholder="Jane"/></div>
         <div class="field"><label>Last Name</label><input type="text" name="lastName" required placeholder="Doe"/></div>
@@ -186,5 +182,21 @@
   </div>
 </footer>
 <script src="assets/app.js"></script>
+<script>
+  (function(){
+    const p=new URLSearchParams(window.location.search);
+    const msg=document.getElementById('form-msg');
+    if(!msg) return;
+    if(p.get('success')==='1'){
+      msg.textContent='✓ Your message has been sent successfully! We\'ll get back to you within 48 hours.';
+      msg.style.color='var(--teal)';
+      msg.style.display='block';
+    } else if(p.get('error')==='1'){
+      msg.textContent='✗ Could not send message. Please call us at (407) 792-8916';
+      msg.style.color='#ff6b6b';
+      msg.style.display='block';
+    }
+  })();
+</script>
 </body>
 </html>
