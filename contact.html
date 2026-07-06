@@ -63,7 +63,7 @@
     <form class="contact-form rv d1" id="contactForm">
       <div class="sec-tag">Free Quote</div>
       <h2 class="sec-h" style="font-size:1.8rem;margin-bottom:1.5rem">Request Your Consultation</h2>
-      <div id="form-msg" style="display:none;font-size:1rem;margin-bottom:1rem;font-weight:600"></div>
+      <div id="form-msg" style="display:none;font-size:.95rem;margin-bottom:1rem;font-weight:600;padding:.8rem 1rem;border-radius:6px"></div>
       <div class="form-row">
         <div class="field"><label>First Name</label><input type="text" name="firstName" required placeholder="Jane"/></div>
         <div class="field"><label>Last Name</label><input type="text" name="lastName" required placeholder="Doe"/></div>
@@ -183,39 +183,48 @@
 </footer>
 <script src="assets/app.js"></script>
 <script>
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = this;
-    const msg = document.getElementById('form-msg');
-    const btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    fetch('send_mail.php', {
-      method: 'POST',
-      body: new FormData(form)
-    })
-    .then(function(res){ return res.json(); })
-    .then(function(data) {
-      msg.style.display = 'block';
-      if (data.success) {
-        msg.textContent = '✓ ' + data.message;
-        msg.style.color = '#3ecfbe';
-        form.reset();
-      } else {
-        msg.textContent = '✗ ' + data.message;
-        msg.style.color = '#ff6b6b';
-      }
-      btn.disabled = false;
-      btn.textContent = 'Send My Request';
-    })
-    .catch(function() {
-      msg.style.display = 'block';
-      msg.textContent = '✗ Network error. Please call us at (407) 792-8916';
-      msg.style.color = '#ff6b6b';
-      btn.disabled = false;
-      btn.textContent = 'Send My Request';
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const formData = new FormData(this);
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      const msg = document.getElementById('form-msg');
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      fetch('send_mail.php', { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            msg.style.display = 'block';
+            msg.style.color = '#3ecfbe';
+            msg.textContent = '✓ ' + data.message;
+            contactForm.reset();
+          } else {
+            msg.style.display = 'block';
+            msg.style.color = '#ff6b6b';
+            msg.textContent = '✗ ' + data.message;
+          }
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        })
+        .catch(err => {
+          console.error('Error:', err);
+          msg.style.display = 'block';
+          msg.style.color = '#ff6b6b';
+          msg.textContent = '✗ An error occurred. Please call us at (407) 792-8916';
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        });
+
+      return false;
     });
-  });
+  }
 </script>
 </body>
 </html>

@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $firstName = htmlspecialchars(trim($_POST['firstName'] ?? ''));
 $lastName  = htmlspecialchars(trim($_POST['lastName']  ?? ''));
 $email     = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-$phone     = htmlspecialchars(trim($_POST['phone']   ?? 'Not provided'));
-$product   = htmlspecialchars(trim($_POST['product'] ?? 'Not specified'));
-$comment   = htmlspecialchars(trim($_POST['message'] ?? ''));
+$phone     = htmlspecialchars(trim($_POST['phone']     ?? 'Not provided'));
+$product   = htmlspecialchars(trim($_POST['product']   ?? 'Not specified'));
+$comment   = htmlspecialchars(trim($_POST['message']   ?? ''));
 
 // Validate required fields
 if (!$firstName || !$lastName || !$email || !$comment) {
