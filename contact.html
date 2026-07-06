@@ -307,7 +307,7 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
         <h3>Send a Message</h3>
         <p class="form-sub">Tell us about your project — space dimensions, intended use, budget, and timeline.</p>
 
-        <form id="contactForm">
+        <form id="contactForm" onsubmit="return false;">
           <div class="form-row">
             <div class="field">
               <label for="fname">First Name</label>
@@ -479,39 +479,37 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
   });
 
   /* Contact form */
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contactForm');
-    if (!form) return;
+  const form = document.getElementById('contactForm');
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+  form.onsubmit = function(e) {
+    if (e) e.preventDefault();
 
-      const btn = form.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
 
-      const data = new FormData(form);
+    const data = new FormData(form);
 
-      fetch('send_mail.php', { method: 'POST', body: data })
-        .then(r => r.json())
-        .then(result => {
-          if (result.success) {
-            form.style.display = 'none';
-            document.getElementById('formSuccess').classList.add('show');
-          } else {
-            alert(result.message);
-            btn.disabled = false;
-            btn.textContent = 'Send Message';
-          }
-        })
-        .catch(e => {
-          alert('Error sending message. Please email info@usvideowalls.com');
+    fetch('send_mail.php', { method: 'POST', body: data })
+      .then(r => r.json())
+      .then(result => {
+        if (result.success) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').classList.add('show');
+        } else {
+          alert(result.message);
           btn.disabled = false;
           btn.textContent = 'Send Message';
-        });
-    }, false);
-  });
+        }
+      })
+      .catch(function() {
+        alert('Error sending message. Please email info@usvideowalls.com');
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      });
+
+    return false;
+  };
 })();
 </script>
 </body>
