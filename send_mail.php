@@ -47,7 +47,7 @@ $comment
 Sent from uswaterwalls.com contact form
 ";
 
-$headers  = "From: no-reply@uswaterwalls.com\r\n";
+$headers  = "From: info@uswaterwalls.com\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
