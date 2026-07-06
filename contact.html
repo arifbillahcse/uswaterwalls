@@ -60,7 +60,7 @@
       <div class="cinfo-card"><div class="cinfo-ico">📍</div><div><h4>Visit Our Studio</h4><p>2541 N. Dale Mabry Hwy. Suite 169<br/>Tampa, Florida 33607 USA</p></div></div>
       <div class="cinfo-card"><div class="cinfo-ico">🌐</div><div><h4>Service Area</h4><p>All 50 United States<br/>Nationwide design &amp; install</p></div></div>
     </div>
-    <form class="contact-form rv d1" id="contactForm">
+    <form class="contact-form rv d1" id="contactForm" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
       <div class="sec-tag">Free Quote</div>
       <h2 class="sec-h" style="font-size:1.8rem;margin-bottom:1.5rem">Request Your Consultation</h2>
       <div class="form-row">
@@ -194,14 +194,14 @@
     btn.disabled = true;
     btn.textContent = 'Sending…';
     var data = new FormData(form);
-    fetch('send_mail.php', { method: 'POST', body: data })
+    fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
       .then(function(r) { return r.json(); })
       .then(function(result) {
-        if (result.success) {
+        if (result.ok) {
           form.style.display = 'none';
           successDiv.style.display = 'block';
         } else {
-          alert(result.message);
+          alert('Something went wrong. Please call us at (407) 792-8916');
           btn.disabled = false;
           btn.textContent = 'Send My Request';
         }
