@@ -39,7 +39,7 @@ $body .= "Message:\n$comment\n\n";
 $body .= "------------------------------------------------\n";
 $body .= "Sent from uswaterwalls.com contact form\n";
 
-$headers  = "From: no-reply@uswaterwalls.com\r\n";
+$headers  = "From: info@uswaterwalls.com\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
