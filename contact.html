@@ -479,41 +479,39 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:4rem var(--p
   });
 
   /* Contact form */
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
       e.stopPropagation();
 
-      const formData = new FormData(this);
-      const submitBtn = this.querySelector('button[type="submit"]');
-      const originalHTML = submitBtn.innerHTML;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
+      const data = new FormData(form);
 
-      fetch('send_mail.php', { method: 'POST', body: formData })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            contactForm.style.display = 'none';
+      fetch('send_mail.php', { method: 'POST', body: data })
+        .then(r => r.json())
+        .then(result => {
+          if (result.success) {
+            form.style.display = 'none';
             document.getElementById('formSuccess').classList.add('show');
           } else {
-            alert(data.message || 'Failed to send. Please try again.');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalHTML;
+            alert(result.message);
+            btn.disabled = false;
+            btn.textContent = 'Send Message';
           }
         })
-        .catch(err => {
-          console.error('Error:', err);
-          alert('An error occurred. Please email us at info@usvideowalls.com');
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalHTML;
+        .catch(e => {
+          alert('Error sending message. Please email info@usvideowalls.com');
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
         });
-
-      return false;
-    });
-  }
+    }, false);
+  });
 })();
 </script>
 </body>
